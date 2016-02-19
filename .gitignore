@@ -1,0 +1,11 @@
+vendor
+composer.lock
+public/dashboard-app/**/*.js
+var/logs/*
+.idea
+bento.iml
+**/*.DS_Store
+**/*.log
+
+
+
