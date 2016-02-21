@@ -1,0 +1,29 @@
+#Gearman Servers
+
+gearman.servers:
+  - name : "Server 1"
+    addr : "127.0.0.1"
+    port : "4730"
+  - name : "Server 2"
+    addr : "127.0.0.1"
+    port : "4730"
+
+
+#Supervisor Servers
+supervisor.servers:
+  - name : "Sup1 "
+    addr : "127.0.0.1"
+    port : "9001"
+  - name : "Sup2"
+    addr : "127.0.0.1"
+    port : "9001"
+
+bento.settings:
+  refresh_interval: 5
+
+#default log file locate in APP_DIR/logs/bento.log
+# monolog.logfile: "/var/log/bento.log
+
+# Logger level.
+# Valid values: error, warning, notice, info, debug.
+monolog.level: "error"

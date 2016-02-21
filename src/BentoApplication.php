@@ -7,39 +7,34 @@
  * Time: 2:23 PM
  */
 
-
-namespace Bento;
-
-use Monolog\Logger,
-    Monolog\Handler\NullHandler,
-    Silex\Application;
-
+require_once __DIR__ . '/../src/ConfigurationProvider.php';
+require_once __DIR__ . '/../src/gearman/GearmanFacadeProvider.php';
+use Silex\Application,
+    Silex\Provider\MonologServiceProvider;
 
 
 class BentoApplication extends Application
 {
 
-    const DEFAULT_LOG_FILE = __DIR__ . '/../var/logs/bento.log';
+    const DEFAULT_LOG_FILE = "/../logs/bento.log";
 
     public function __construct(array $values = array())
     {
+        parent::__construct($values);
+
         #Set run environment
         $this['env'] = getenv('APP_ENV') ?: 'prod';
 
         # Monolog service
-        # In test env, do not log.
         $this->register(new MonologServiceProvider, array(
             'monolog.logfile' => __DIR__ . static::DEFAULT_LOG_FILE,
             'monolog.name' => 'Bento'
         ));
 
-        if ('test' === $this['env']) {
-            $this['monolog.handler'] = function () {
-                return new NullHandler();
-            };
-        }
+        $this->register(new ConfigurationProvider());
 
-        $this->register(new SupervisorFacadeProvider());
+        //Registering Gearman components
+        $this->register(new GearmanFacadeProvider());
 
 
     }

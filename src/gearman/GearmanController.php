@@ -7,9 +7,26 @@
  * Time: 3:09 PM
  */
 
-namespace Gearman\GearmanController;
+use \Silex\Application,
+    Symfony\Component\HttpFoundation\JsonResponse;
 
-class GearmanController
+class GearmanController implements \Silex\ControllerProviderInterface
 {
+    public function connect(Application $app) {
+
+
+        $controllers = $app['controllers_factory'];
+        $controllers->get('info', function() use ($app){
+            $info = $app['gearman.serverInfo']->getServersInfo();
+            return new JsonResponse($info);
+        });
+
+        return $controllers;
+    }
+
+    public function boot(Application $app)
+    {
+        // TODO: Implement boot() method.
+    }
 
 }

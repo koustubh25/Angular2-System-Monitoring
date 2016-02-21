@@ -7,19 +7,18 @@
  * Time: 3:09 PM
  */
 
-namespace Bento\Supervisor\SupervisorController;
-
-use Silex\ServiceProviderInterface;
+use Silex\ControllerProviderInterface;
 use Silex\Application;
 
-class SupervisorController implements ServiceProviderInterface
+class SupervisorController implements ControllerProviderInterface
 {
-    public function register(Application $app) {
+    public function connect(Application $app) {
 
         $controllers = $app['controllers_factory'];
-        $app->get('/supervisor/processes', function() use ($app){
+        $controllers->get('/processes', function() use ($app){
 
-            error_log("supervisor prcoesses has ben called");
+            error_log("supervisor prcoesses has ben called", false);
+            return new \Symfony\Component\HttpFoundation\Response('supervisor prcoesses has ben called');
         });
 
         return $controllers;
