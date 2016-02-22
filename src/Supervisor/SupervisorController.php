@@ -19,7 +19,7 @@ class SupervisorController implements ControllerProviderInterface
         $controllers = $app['controllers_factory'];
         $controllers->get('/info', function() use ($app){
 
-            $info = $app['supervisor.serverInfo']->getServersInfo();
+            $info = $app['supervisor']->getServersInfo();
 
             return new JsonResponse($info);
         });
@@ -30,7 +30,7 @@ class SupervisorController implements ControllerProviderInterface
             $ip = $req->get("ip");
             $port = $req->get("port");
 
-            $status = $app['supervisor.stopAll']->stopAllProcesses($ip, $port);
+            $status = $app['supervisor']->stopAllProcesses($ip, $port);
 
             return new JsonResponse($status);
         });
@@ -40,7 +40,7 @@ class SupervisorController implements ControllerProviderInterface
             $ip = $req->get("ip");
             $port = $req->get("port");
 
-            $status = $app['supervisor.startAll']->startAllProcesses($ip, $port);
+            $status = $app['supervisor']->startAllProcesses($ip, $port);
 
             return new JsonResponse($status);
         });
@@ -51,7 +51,7 @@ class SupervisorController implements ControllerProviderInterface
             $port = $req->get("port");
             $processName = $req->get("process");
 
-            $status = $app['supervisor.stopProcess']->stopProcess($ip, $port, $processName);
+            $status = $app['supervisor']->stopProcess($ip, $port, $processName);
 
             return new JsonResponse($status);
         });
@@ -62,7 +62,7 @@ class SupervisorController implements ControllerProviderInterface
             $port = $req->get("port");
             $processName = $req->get("process");
 
-            $status = $app['supervisor.startProcess']->startProcess($ip, $port, $processName);
+            $status = $app['supervisor']->startProcess($ip, $port, $processName);
 
             return new JsonResponse($status);
         });
@@ -72,7 +72,7 @@ class SupervisorController implements ControllerProviderInterface
             $ip = $req->get("ip");
             $port = $req->get("port");
 
-            $status = $app['supervisor.restartAll']->restartAllProcesses($ip, $port);
+            $status = $app['supervisor']->restartAllProcesses($ip, $port);
 
             return new JsonResponse($status);
         });
