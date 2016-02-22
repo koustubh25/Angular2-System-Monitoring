@@ -1,7 +1,7 @@
 vendor
 composer.lock
 public/dashboard-app/**/*.js
-var/logs/*
+logs/*
 .idea
 bento.iml
 **/*.DS_Store

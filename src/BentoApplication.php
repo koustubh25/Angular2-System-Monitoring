@@ -9,6 +9,7 @@
 
 require_once __DIR__ . '/../src/ConfigurationProvider.php';
 require_once __DIR__ . '/../src/gearman/GearmanFacadeProvider.php';
+require_once __DIR__ . '/../src/supervisor/SupervisorFacadeProvider.php';
 use Silex\Application,
     Silex\Provider\MonologServiceProvider;
 
@@ -35,6 +36,8 @@ class BentoApplication extends Application
 
         //Registering Gearman components
         $this->register(new GearmanFacadeProvider());
+
+        $this->register(new SupervisorFacadeProvider());
 
 
     }

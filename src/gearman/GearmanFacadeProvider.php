@@ -1,8 +1,7 @@
 <?php
 
 use Silex\Application,
-    Silex\ServiceProviderInterface,
-    Net_Gearman_Manager;
+    Silex\ServiceProviderInterface;
 
 require_once __DIR__ . '/GearmanFacade.php';
 

@@ -6,7 +6,12 @@
     "symfony/twig-bridge": "~2.7",
     "monolog/monolog": "~1.16",
     "symfony/yaml": "~2.7",
-    "alptis/net-gearman": "~1.0.0"
+    "alptis/net-gearman": "~1.0.0",
+    "supervisorphp/configuration": "^0.2.0",
+    "supervisorphp/supervisor": "^3.0",
+    "lstrojny/fxmlrpc": "0.10.0",
+    "php-http/guzzle5-adapter" : "*",
+    "egeloen/http-adapter" : "*"
   },
   "repositories": [
     {

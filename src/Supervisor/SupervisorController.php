@@ -7,18 +7,20 @@
  * Time: 3:09 PM
  */
 
-use Silex\ControllerProviderInterface;
-use Silex\Application;
+use Silex\ControllerProviderInterface,
+    Silex\Application,
+    Symfony\Component\HttpFoundation\JsonResponse;
 
 class SupervisorController implements ControllerProviderInterface
 {
     public function connect(Application $app) {
 
         $controllers = $app['controllers_factory'];
-        $controllers->get('/processes', function() use ($app){
+        $controllers->get('/info', function() use ($app){
 
-            error_log("supervisor prcoesses has ben called", false);
-            return new \Symfony\Component\HttpFoundation\Response('supervisor prcoesses has ben called');
+            $info = $app['supervisor.serverInfo']->getServersInfo();
+
+            return new JsonResponse($info);
         });
 
         return $controllers;

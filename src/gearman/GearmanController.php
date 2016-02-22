@@ -8,9 +8,10 @@
  */
 
 use \Silex\Application,
+    Silex\ControllerProviderInterface,
     Symfony\Component\HttpFoundation\JsonResponse;
 
-class GearmanController implements \Silex\ControllerProviderInterface
+class GearmanController implements ControllerProviderInterface
 {
     public function connect(Application $app) {
 

@@ -10,13 +10,19 @@ gearman.servers:
 
 
 #Supervisor Servers
+#uname and password don't matter if
+#supervisor is set to run without it
 supervisor.servers:
   - name : "Sup1 "
     addr : "127.0.0.1"
     port : "9001"
+    uname : "admin"
+    password : "admin"
   - name : "Sup2"
-    addr : "127.0.0.1"
+    addr : "192.168.1.115"
     port : "9001"
+    uname : "admin"
+    password : "admin"
 
 bento.settings:
   refresh_interval: 5
