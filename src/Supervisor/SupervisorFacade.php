@@ -198,8 +198,22 @@ class SupervisorFacade{
     }
 
     public function restartAllProcesses($ip = "127.0.0.1", $port = "9001"){
-        $this->stopAllProcesses($ip, $port);
-        $this->startAllProcesses($ip, $port);
+
+        $processes = array();
+        $startProcesses = $this->stopAllProcesses($ip, $port);
+        $processes['startProcesses'] = $startProcesses;
+
+        $stopProcesses = $this->startAllProcesses($ip, $port);
+        $processes['stopProcesses'] = $stopProcesses;
+
+        if ($startProcesses['status'] == "OK"  && $stopProcesses['status'] =="OK" ){
+            $processes['status'] = "OK";
+        }
+        else{
+            $processes['error'] = "Error restarting processes on " . $ip . ":" . $port . ". Please check individual startProcesses and stopProcesses response";
+        }
+
+        return $processes;
     }
 
     protected function setLogger($logger) {
@@ -239,4 +253,3 @@ class SupervisorFacade{
     }
 
 }
-

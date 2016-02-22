@@ -39,6 +39,12 @@ class SupervisorFacadeProvider implements ServiceProviderInterface
                 null,
                 $app['monolog']);
         });
+
+        $app['supervisor.restartAll'] = $app->share(function() use ($app) {
+            return new SupervisorFacade(
+                null,
+                $app['monolog']);
+        });
     }
     public function boot(Application $app) {}
 }

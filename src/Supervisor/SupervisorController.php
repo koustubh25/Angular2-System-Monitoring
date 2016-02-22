@@ -67,6 +67,16 @@ class SupervisorController implements ControllerProviderInterface
             return new JsonResponse($status);
         });
 
+        $controllers->post('/restart/all', function(Request $req) use ($app){
+
+            $ip = $req->get("ip");
+            $port = $req->get("port");
+
+            $status = $app['supervisor.restartAll']->restartAllProcesses($ip, $port);
+
+            return new JsonResponse($status);
+        });
+
 
         return $controllers;
     }
