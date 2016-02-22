@@ -1,0 +1,19 @@
+.server_list {
+    left: 0;
+    width: 250px;
+    position: absolute;
+    color: #00AA00;
+}
+
+.server_data{
+    left:350px;
+    width:100%;
+    position: absolute;
+    color: #000;
+    top: 180px;
+}
+
+.start_button{
+    background-color: red;
+    color: white;
+}

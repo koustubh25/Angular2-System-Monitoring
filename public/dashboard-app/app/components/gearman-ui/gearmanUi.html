@@ -1,0 +1,18 @@
+<div mdl class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
+ <div class="mdl-layout__drawer">
+
+  <nav class="mdl-navigation">
+   <!--<a [routerLink]="['PrivateServers']" class="mdl-layout__tab is-active">Private Server</a>-->
+   <a class="mdl-navigation__link" [routerLink]="['JobQueue']" >Job Queue</a>
+      <a class="mdl-navigation__link" [routerLink]="['Workers']">Workers</a>
+   <a class="mdl-navigation__link" [routerLink]="['GearmanStatus']">Gearman Status</a>
+  </nav>
+ </div>
+
+ <main class="mdl-layout__content">
+  <div class="page-content">
+   <router-outlet></router-outlet>
+  </div>
+ </main>
+
+</div>

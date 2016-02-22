@@ -1,0 +1,3 @@
+[submodule "public/millvi-dashboard-app"]
+	path = public/millvi-dashboard-app
+	url = https://github.com/koustubh25/millvi-dashboard-app.git

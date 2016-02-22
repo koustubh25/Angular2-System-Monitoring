@@ -1,0 +1,9 @@
+.job-queue-status-ok{
+    color:#47d147;
+
+}
+
+.job-queue-status-fail{
+    color:red;
+
+}

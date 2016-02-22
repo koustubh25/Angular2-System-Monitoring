@@ -1,0 +1,19 @@
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
+
+<header class="mdl-layout__header">
+	<div class="mdl-layout__header-row">
+		<span class="mdl-layout-title">Millvi System Dashboard</span>
+	</div>
+	<div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+		<a [routerLink]="['PrivateServers']" class="mdl-layout__tab is-active">Private Server</a>
+		<a [routerLink]="['GearmanUi']"  class="mdl-layout__tab">Gearman UI</a>
+		<a [routerLink]="['Supervisor']" class="mdl-layout__tab">Supervisor Monitor</a>
+		<a [routerLink]="['ServerMonitor']" class="mdl-layout__tab">Netflix Vector</a>
+	</div>
+</header>
+
+<main class="mdl-layout__content">
+	<router-outlet></router-outlet>
+</main>
+
+</div>

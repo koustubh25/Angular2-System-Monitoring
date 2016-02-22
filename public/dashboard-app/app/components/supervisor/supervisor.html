@@ -1,0 +1,120 @@
+<div mdl class="server_list">
+    <div class="demo-list-action mdl-list" *ngFor="#server of supervisor">
+
+
+
+    <div class="mdl-list__item mdl-list__item--three-line" (click)="serverDetails(server.data)">
+
+        <span class="mdl-list__item-primary-content">
+
+        <i class="material-icons mdl-list__item-avatar">computer</i>
+
+      <span>Some name</span> <!-- Get this from config later on-->
+        <span class="mdl-list__item-text-body">{{server.supervisor_server}}</span>
+    </span>
+
+    </div>
+
+
+    </div>
+
+</div>
+<div class="server_data">
+
+    <table  class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" *ngIf="detail==1">
+
+        <thead align="">
+        <tr>
+            <th>Job Name</th>
+            <th>State Name</th>
+            <th>Group name</th>
+            <th>Description</th>
+            <th>Operation</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr *ngFor="#element of data">
+            <td>{{element.job_name}}</td>
+            <td [style.background]="'lime'">{{element.state}}</td>
+            <td>{{element.group_name}}</td>
+            <td>{{element.description}}</td>
+            <td>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect start_button">
+                    Start/Stop
+                </button>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+    <!--<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+        <thead align="">
+        <tr>
+            <th> Private Server IP</th>
+            <th> Host ID</th>
+            <th> Number of Video workers</th>
+            <th> Number of PDF workers</th>
+            <th> Switch </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="#privateServer of privateServers">
+            <td>
+                {{privateServer.server_ip}}
+            </td>
+            <td>
+                {{privateServer.id_host}}
+            </td>
+            <td>
+                {{privateServer.video_convert_workers}}
+            </td>
+            <td>
+                {{privateServer.pdf_convert_workers}}
+            </td>
+            <td>
+                <div id="switch_public" class="material-icons" (click)="privateToPublic(privateServer.server_ip)">undo</div>
+                <div class="mdl-tooltip  mdl-tooltip--large" for="switch_public">
+                    <strong>Switch to Public Server</strong>
+                </div>
+            </td>
+        </tr>
+        <tr *ngIf="newEntry == 1">
+            <td>
+                <div class="mdl-textfield mdl-js-textfield millvi-half-width">
+                    <input class="mdl-textfield__input" type="text" id="private_sever_ip" [(ngModel)]="newServer.ip">
+                    <label class="mdl-textfield__label" for="private_sever_ip">IP</label>
+                </div>
+            </td>
+            <td>
+                <div class="mdl-textfield mdl-js-textfield millvi-half-width">
+                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="host_id" [(ngModel)]="newServer.id_host">
+                    <label class="mdl-textfield__label" for=host_id>Host ID</label>
+                    <span class="mdl-textfield__error">Not a valid host id!</span>
+                </div>
+            </td>
+            <td>
+                <div class="mdl-textfield mdl-js-textfield millvi-half-width">
+                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="video_workers" [(ngModel)]="newServer.video_workers">
+                    <label class="mdl-textfield__label" for="video_workers">Video Workers</label>
+                    <span class="mdl-textfield__error">Not Valid number of workers!</span>
+                </div>
+            </td>
+            <td>
+                <div class="mdl-textfield mdl-js-textfield millvi-half-width">
+                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="pdf_workers" [(ngModel)]="newServer.pdf_workers">
+                    <label class="mdl-textfield__label" for="pdf_workers">PDF Workers</label>
+                    <span class="mdl-textfield__error">Not Valid number of workers!</span>
+                </div>
+            </td>
+
+        </tr>
+
+        </tbody>
+
+
+    </table>-->
+
+</div>
+

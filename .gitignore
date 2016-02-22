@@ -1,11 +1,18 @@
 vendor
 composer.lock
-public/dashboard-app/**/*.js
 logs/*
 .idea
 bento.iml
 **/*.DS_Store
 **/*.log
+
+public/dashboard-app/**/*.js*
+public/dashboard-app/app/components/dashboard/*.js*
+public/dashboard-app/app/components/gearman-ui/*.js*
+public/dashboard-app/app/components/private-server/*.js*
+public/dashboard-app/app/components/server-monitor/*.js*
+public/dashboard-app/app/components/supervisor/*.js*
+public/dashboard-app/node_modules
 
 
 

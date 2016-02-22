@@ -1,0 +1,58 @@
+
+<html>
+
+<head>
+
+    <!-- Material Lite-->
+    <link rel="stylesheet" type="text/css" href="app/css/material.indigo-pink.min.css">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" rel="stylesheet">
+    <link href="app/components/server-monitor/netflix-vector/dist/styles/vendor-c0a35f80.css" rel="stylesheet">
+    <link href="app/components/server-monitor/netflix-vector/dist/styles/main-0c4cc0e5.css" rel="stylesheet">
+
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+     <link rel="stylesheet" href="https://code.getmdl.io/1.1.1/material.indigo-pink.min.css">
+     <script defer src="https://code.getmdl.io/1.1.1/material.min.js"></script> -->
+    <title>Millvi Dashboard</title>
+
+    <!-- 1. Load libraries -->
+    <!-- IE required polyfills, in this exact order -->
+    <script src="node_modules/es6-shim/es6-shim.min.js"></script>
+    <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
+    <script src="node_modules/angular2/bundles/angular2-polyfills.min.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="node_modules/rxjs/bundles/Rx.js"></script>
+    <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+    <script src="node_modules/angular2/bundles/router.dev.js"></script>
+    <script src="node_modules/angular2/bundles/http.dev.js"></script>
+    <script defer src="node_modules/material-design-lite/dist/material.min.js"></script>
+    <!--<script src="app/components/server-monitor/netflix-vector/dist/scripts/vendors-6198c999_old.js"></script>
+    <script src="app/components/server-monitor/netflix-vector/dist/scripts/app-ab462e8c.js"></script> -->
+
+
+
+    <!-- 2. Configure SystemJS -->
+    <script>
+        System.config({
+            packages: {
+                app: {
+                    format: 'register',
+                    defaultExtension: 'js'
+                }
+            }
+        });
+        System.import('app/boot')
+                .then(null, console.error.bind(console));
+    </script>
+
+</head>
+<base href="/">
+
+<body>
+<millvi-dashboard-app>
+    Loading
+</millvi-dashboard-app>
+</body>
+
+</html>

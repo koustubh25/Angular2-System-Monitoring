@@ -37,7 +37,8 @@ class GearmanFacade
      * @param $server
      * @return mixed
      */
-    public function getServerInfo($server) {
+
+    private function init($server){
         $managerFactory = $this->getManagerFactory();
         try { // Try to open to the correction
             $manager = $managerFactory($server['addr']);
@@ -47,11 +48,26 @@ class GearmanFacade
             $server['error'] = $this->serverErrorHandler($e, $server['name']);
             $server['up'] = false;
         }
+        return array(
+            "server" => $server,
+            "manager" => $manager
+        );
+    }
+
+
+    public function getServerInfo($server) {
+
+        $init = $this->init($server);
+
+        $server = $init["server"];
+        $manager = $init["manager"];
+
         if ($server['up']) {
             try { // Get info from the server.
                 $server['version'] = $manager->version();
                 $server['workers'] = $manager->workers();
-                $server['status'] = $manager->status();
+                $updated_status = $this->parse($manager->status());
+                $server['status'] = $updated_status;
                 $manager->disconnect();
             }
             catch (\Exception $e) {
@@ -60,6 +76,28 @@ class GearmanFacade
         }
         return $server;
     }
+
+    private function parse($status){
+
+        $updated_status = array();
+        $function_names = array_keys($status);
+        $i = 0;
+        foreach($status as $stat){
+            //get Array key
+            $new_status = array(
+                "function_name" => $function_names[$i],
+                "in_queue" => $stat["in_queue"],
+                "jobs_running" => $stat["jobs_running"],
+                "capable_workers" => $stat["capable_workers"]
+            );
+
+            array_push($updated_status, $new_status);
+            $i= $i + 1;
+        }
+        return $updated_status;
+
+    }
+
     /**
      * Log errors.
      *
