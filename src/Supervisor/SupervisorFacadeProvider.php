@@ -16,9 +16,27 @@ class SupervisorFacadeProvider implements ServiceProviderInterface
         });
 
 
-        $app['supervisor.stopAllProcesses'] = $app->share(function() use ($app) {
+        $app['supervisor.stopAll'] = $app->share(function() use ($app) {
             return new SupervisorFacade(
-                $app['supervisor.servers'],
+                null,
+                $app['monolog']);
+        });
+
+        $app['supervisor.startAll'] = $app->share(function() use ($app) {
+            return new SupervisorFacade(
+                null,
+                $app['monolog']);
+        });
+
+        $app['supervisor.stopProcess'] = $app->share(function() use ($app) {
+            return new SupervisorFacade(
+                null,
+                $app['monolog']);
+        });
+
+        $app['supervisor.startProcess'] = $app->share(function() use ($app) {
+            return new SupervisorFacade(
+                null,
                 $app['monolog']);
         });
     }

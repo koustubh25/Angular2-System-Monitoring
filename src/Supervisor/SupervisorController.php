@@ -9,7 +9,8 @@
 
 use Silex\ControllerProviderInterface,
     Silex\Application,
-    Symfony\Component\HttpFoundation\JsonResponse;
+    Symfony\Component\HttpFoundation\JsonResponse,
+    \Symfony\Component\HttpFoundation\Request;
 
 class SupervisorController implements ControllerProviderInterface
 {
@@ -22,6 +23,50 @@ class SupervisorController implements ControllerProviderInterface
 
             return new JsonResponse($info);
         });
+
+
+        $controllers->post('/stop/all', function(Request $req) use ($app){
+
+            $ip = $req->get("ip");
+            $port = $req->get("port");
+
+            $status = $app['supervisor.stopAll']->stopAllProcesses($ip, $port);
+
+            return new JsonResponse($status);
+        });
+
+        $controllers->post('/start/all', function(Request $req) use ($app){
+
+            $ip = $req->get("ip");
+            $port = $req->get("port");
+
+            $status = $app['supervisor.startAll']->startAllProcesses($ip, $port);
+
+            return new JsonResponse($status);
+        });
+
+        $controllers->post('/stop/process', function(Request $req) use ($app){
+
+            $ip = $req->get("ip");
+            $port = $req->get("port");
+            $processName = $req->get("process");
+
+            $status = $app['supervisor.stopProcess']->stopProcess($ip, $port, $processName);
+
+            return new JsonResponse($status);
+        });
+
+        $controllers->post('/start/process', function(Request $req) use ($app){
+
+            $ip = $req->get("ip");
+            $port = $req->get("port");
+            $processName = $req->get("process");
+
+            $status = $app['supervisor.startProcess']->startProcess($ip, $port, $processName);
+
+            return new JsonResponse($status);
+        });
+
 
         return $controllers;
     }

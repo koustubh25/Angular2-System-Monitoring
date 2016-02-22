@@ -44,7 +44,7 @@ class GearmanFacade
             $server['up'] = true;
         }
         catch (\Exception $e) {
-            $server['error'] = $this->serverErrorHandler($e, $server['name'], static::MANAGER_ERROR_CONNECT);
+            $server['error'] = $this->serverErrorHandler($e, $server['name']);
             $server['up'] = false;
         }
         if ($server['up']) {
@@ -55,7 +55,7 @@ class GearmanFacade
                 $manager->disconnect();
             }
             catch (\Exception $e) {
-                $server['error'] = $this->serverErrorHandler($e, $server['name'], static::MANAGER_ERROR_DATA);
+                $server['error'] = $this->serverErrorHandler($e, $server['name']);
             }
         }
         return $server;
@@ -65,10 +65,9 @@ class GearmanFacade
      *
      * @param \Exception $e
      * @param $serverName
-     * @param $type
      * @return string
      */
-    protected function serverErrorHandler(\Exception $e, $serverName, $type) {
+    protected function serverErrorHandler(\Exception $e, $serverName) {
         $errorMessage = "Error in server " . $serverName . ': ' . $e->getMessage();
         $this->getLogger()->addError($errorMessage);
         $this->getLogger()->addDebug($e);

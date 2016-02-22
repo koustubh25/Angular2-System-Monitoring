@@ -13,11 +13,13 @@ class SupervisorFacade{
 
     private $servers;
     private $logger;
+    private $process_name;
 
-    public function __construct($servers, $logger)
+    public function __construct($servers, $logger, $process_name = null)
     {
         $this->setServers($servers);
         $this->setLogger($logger);
+        $this->setProcess($process_name);
     }
 
 
@@ -92,63 +94,106 @@ class SupervisorFacade{
 
     public function stopProcess($ip = "127.0.0.1", $port = "9001", $name){
 
+        $stopProcess = array(
+            "server" => $ip,
+            "port" => $port,
+            "name" => $name
+        );
 
         $supervisor = self::getSupervisor($ip, $port);
         try{
             $supervisor->stopProcess($name);
-        } catch (BadName $e) {
-            error_log(print_r($e, true));
-        } catch (Fault $e) {
-            error_log(print_r($e, true));
+            $stopProcess["status"] = "OK";
         }
+        catch (BadName $e) {
+            $stopProcess["error"] = $this->serverErrorHandler($e, $ip . ':' . $port . " " . $name);
+        }
+        catch (Fault $e) {
+            $stopProcess["error"] = $this->serverErrorHandler($e, $ip . ':' . $port . " " . $name);
+        }
+        catch(Exception $e){
+            $stopProcess["error"] = $this->serverErrorHandler($e, $ip . ':' . $port . " " . $name);
+        }
+
+        return $stopProcess;
 
     }
 
     public function startProcess($ip = "127.0.0.1", $port = "9001", $name){
 
 
+        $startProcess = array(
+            "server" => $ip,
+            "port" => $port,
+            "name" => $name
+        );
+
         $supervisor = self::getSupervisor($ip, $port);
+
         try{
             $supervisor->startProcess($name);
-        } catch (BadName $e) {
-            error_log(print_r($e, true));
-            return 0;
-        } catch (Fault $e) {
-            error_log(print_r($e, true));
-            return 0;
         }
+        catch (BadName $e) {
+            $startProcess["error"] = $this->serverErrorHandler($e, $ip . ':' . $port . " " . $name);
+        }
+        catch (Fault $e) {
+            $startProcess["error"] = $this->serverErrorHandler($e, $ip . ':' . $port . " " . $name);
+        }
+        catch (Exception $e){
+            $startProcess["error"] = $this->serverErrorHandler($e, $ip . ':' . $port . " " . $name);
+        }
+
+        return $startProcess;
 
     }
 
     public function stopAllProcesses($ip = "127.0.0.1", $port = "9001"){
 
 
+        $stopProcesses = array(
+            "server" => $ip,
+            "port" => $port
+        );
         $supervisor = self::getSupervisor($ip, $port);
         try{
             $supervisor->stopAllProcesses();
-        } catch (BadName $e) {
-            error_log(print_r($e, true));
-            return 0;
-        } catch (Fault $e) {
-            error_log(print_r($e, true));
-            return 0;
+            $stopProcesses["status"] = "OK";
         }
+        catch (BadName $e) {
+            $stopProcesses["error"] = $this->serverErrorHandler($e, $ip . ':' . $port);
+        }
+        catch (Fault $e) {
+            $stopProcesses["error"] = $this->serverErrorHandler($e, $ip . ':' . $port);
+        }
+        catch(Exception $e){
+            $stopProcesses['error'] = $this->serverErrorHandler($e, $ip . ':' . $port);
+        }
+        return $stopProcesses;
 
     }
 
     public function startAllProcesses($ip = "127.0.0.1", $port = "9001"){
 
-
+        $startProcesses = array(
+            "server" => $ip,
+            "port" => $port
+        );
         $supervisor = self::getSupervisor($ip, $port);
         try{
             $supervisor->startAllProcesses();
-        } catch (BadName $e) {
-            error_log(print_r($e, true));
-            return 0;
-        } catch (Fault $e) {
-            error_log(print_r($e, true));
-            return 0;
+            $startProcesses["status"] = "OK";
         }
+        catch (BadName $e) {
+            $startProcesses["error"] = $this->serverErrorHandler($e, $ip . ':' . $port);
+        }
+        catch (Fault $e) {
+            $startProcesses["error"] = $this->serverErrorHandler($e, $ip . ':' . $port);
+        }
+        catch(Exception $e){
+            $startProcesses['error'] = $this->serverErrorHandler($e, $ip . ':' . $port);
+        }
+
+        return $startProcesses;
 
     }
 
@@ -175,7 +220,18 @@ class SupervisorFacade{
         return $this->servers;
     }
 
-    protected function serverErrorHandler(\Exception $e, $serverName, $type) {
+    protected function setProcess($process) {
+        $this->process_name = $process;
+        return $this;
+    }
+
+    public function getProcess() {
+        return $this->process_name;
+    }
+
+
+
+    protected function serverErrorHandler(\Exception $e, $serverName) {
         $errorMessage = "Error in server " . $serverName . ': ' . $e->getMessage();
         $this->getLogger()->addError($errorMessage);
         $this->getLogger()->addDebug($e);
