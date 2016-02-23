@@ -13,7 +13,32 @@
     top: 180px;
 }
 
-.start_button{
+.stop_button{
     background-color: red;
     color: white;
 }
+
+.connected{
+    color: forestgreen;
+}
+
+.disconnected{
+    color: red;
+}
+
+table tbody .RUNNING{
+    color:darkgreen;
+    font-weight: bolder;
+}
+
+.error_msg{
+    color: red;
+    width: 51%;
+    position: absolute;
+
+}
+
+
+
+
+

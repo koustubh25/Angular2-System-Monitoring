@@ -15,19 +15,10 @@ export var config:any =
 
 //Gearman UI
 "GEARMAN_UI_HOST" : "http://gearman.local.eviry.com",
-"GEARMAN_DATA" : {"gearman_servers" :[{
-        "name" : "server 1",
-        "addr" : "192.168.1.115"
-    },
-    {
-        "name" : "Server 2",
-        "addr" : "192.0.1.126"
-    }
-]},
 
 
 //SUPERVISOR
-SUPERVISOR_SERVERS : ["127.0.0.1", "192.168.1.115"],
+SUPERVISOR_API_BASE : "http://bento/supervisor"
 
 
 }
