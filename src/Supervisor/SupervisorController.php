@@ -10,7 +10,8 @@
 use Silex\ControllerProviderInterface,
     Silex\Application,
     Symfony\Component\HttpFoundation\JsonResponse,
-    \Symfony\Component\HttpFoundation\Request;
+    \Symfony\Component\HttpFoundation\Request,
+    \Symfony\Component\HttpFoundation\Response;
 
 class SupervisorController implements ControllerProviderInterface
 {
@@ -64,7 +65,7 @@ class SupervisorController implements ControllerProviderInterface
 
             $status = $app['supervisor']->startProcess($ip, $port, $processName);
 
-            return new JsonResponse($status);
+            return new Response(new JsonResponse($status));
         });
 
         $controllers->post('/restart/all', function(Request $req) use ($app){
@@ -73,7 +74,6 @@ class SupervisorController implements ControllerProviderInterface
             $port = $req->get("port");
 
             $status = $app['supervisor']->restartAllProcesses($ip, $port);
-
             return new JsonResponse($status);
         });
 
@@ -83,6 +83,7 @@ class SupervisorController implements ControllerProviderInterface
                 $request->request->replace(is_array($data) ? $data : array());
             }
         });
+
 
         return $controllers;
     }
