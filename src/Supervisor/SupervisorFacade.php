@@ -132,6 +132,7 @@ class SupervisorFacade{
 
         try{
             $supervisor->startProcess($name);
+            $startProcess["status"] = "ok";
         }
         catch (BadName $e) {
             $startProcess["error"] = $this->serverErrorHandler($e, $ip . ':' . $port . " " . $name);

@@ -17,6 +17,8 @@ export class SupervisorComponent implements OnInit{
 	protected supervisorServers : any;
     protected server: any;
     protected error: boolean;
+    protected button:any;
+
 	constructor(private _supervisorInfo:SupervisorService){}
 
 	ngOnInit(){
@@ -59,6 +61,34 @@ export class SupervisorComponent implements OnInit{
         else
             return "Could not connect";
 
+    }
+
+
+    getButtonData(state){
+
+        if(state == 'RUNNING')
+            this.button = 'Stop';
+        else
+            this.button = 'Start';
+        return 'btn_' + state;
+
+    }
+
+    alterProcess(server, process){
+        //stop here
+        if(process.statename == "RUNNING"){
+
+            let stopProcess = () => {
+                this._supervisorInfo.stopProcess(server.ip,
+                    server.port,
+                    process.group + ":" + process.name);
+            };
+
+            stopProcess();
+        }
+        /*else{//start her
+            startProcess(server, process);
+        }*/
     }
 
 

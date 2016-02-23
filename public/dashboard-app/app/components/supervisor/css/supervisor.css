@@ -18,6 +18,7 @@
     color: white;
 }
 
+
 .connected{
     color: forestgreen;
 }
@@ -28,6 +29,30 @@
 
 table tbody .RUNNING{
     color:darkgreen;
+    font-weight: bolder;
+}
+
+table tbody .btn_RUNNING{
+    color:white;
+    background-color: red;
+    font-weight: bolder;
+}
+
+table tbody .btn_STOPPED{
+    color:white;
+    background-color: green;
+    font-weight: bolder;
+}
+
+
+table tbody .STOPPED{
+    color:red;
+    font-weight: bolder;
+
+}
+
+table tbody .FATAL{
+    color:darkred;
     font-weight: bolder;
 }
 

@@ -43,8 +43,12 @@
                 <td class='{{process.statename}}'>{{process.statename}}</td>
                 <td>{{process.description}}</td>
                 <td>
-                    <button class="mdl-js-button mdl-button--raised mdl-js-ripple-effect stop_button">
-                        Stop
+                    <button class="{{getButtonData(process.statename)}}
+                                    mdl-js-button
+                                    mdl-button--raised
+                                    mdl-js-ripple-effect
+                                    mdl-button--accent" (click)="alterProcess(server, process)">
+                            {{button}}
                     </button>
                 </td>
             </tr>
