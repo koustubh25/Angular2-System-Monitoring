@@ -12,45 +12,46 @@ export class SupervisorService {
     makeHtpGetRequest(url){
         return this.http.get(url)
             .map(res =>res.json())
-
     }
 
-    makeHttpPostRequest(){
-
+    makeHttpPostRequest(url, body, options){
+        return this.http.post(url, body, options)
+            .map(res =>  res.json());
     }
 
     getSupervisorInfo(){
-        //use these IP later
-        /*let servers = config.SUPERVISOR_SERVERS;
-        return SUPERVISOR_PROCESSES;*/
         let url = config.SUPERVISOR_API_BASE + "/info"
 
         return this.makeHtpGetRequest(url);
     }
 
-    stopProcess(ip, port, processName){
-
-        let url = config.SUPERVISOR_API_BASE + "/stop/process";
+    buildBody(ip, port, processName){
         let data = {
             "ip": ip,
             "port": port,
             "process": processName
-        }
+        };
         let body = JSON.stringify(data);
-        console.log(body);
-        let head = new Headers({
-            'Content-Type': 'application/json'
-        });
-        //headers.append('application/json');
-        //let options = new RequestOptions({ headers: headers });
+        return body;
+    }
 
-        this.http.post(url, body, {headers : head})
-            .map(res =>  res.json())
-            .subscribe(
-                data => {console.log(data);},
-                err => console.log(err),
-                () => console.log('Fetching complete for Server Metrics')
-            );
+    stopProcess(ip, port, processName){
+
+        let url = config.SUPERVISOR_API_BASE + "/stop/process";
+        let body = this.buildBody(ip, port, processName);
+        let header = new Headers({ 'Content-Type': 'application/json'});
+        let options = new RequestOptions({ headers: header });
+        return this.makeHttpPostRequest(url, body, options)
+
+    }
+
+    startProcess(ip, port, processName){
+
+        let url = config.SUPERVISOR_API_BASE + "/start/process";
+        let body = this.buildBody(ip, port, processName);
+        let header = new Headers({ 'Content-Type': 'application/json'});
+        let options = new RequestOptions({ headers: header });
+        return this.makeHttpPostRequest(url, body, options)
 
     }
 

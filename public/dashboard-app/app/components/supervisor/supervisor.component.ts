@@ -1,4 +1,4 @@
-import {Component, OnInit} from 'angular2/core';
+import {Component, OnInit, ElementRef} from 'angular2/core';
 import {Supervisor} from './supervisor';
 import {Process} from './process';
 import {SupervisorService} from '../../services/supervisor.service';
@@ -18,8 +18,10 @@ export class SupervisorComponent implements OnInit{
     protected server: any;
     protected error: boolean;
     protected button:any;
+    protected operationResult: any;
 
-	constructor(private _supervisorInfo:SupervisorService){}
+	constructor(private _supervisorInfo:SupervisorService,
+                private el:ElementRef){}
 
 	ngOnInit(){
         this.getSupervisorServers();
@@ -79,16 +81,32 @@ export class SupervisorComponent implements OnInit{
         if(process.statename == "RUNNING"){
 
             let stopProcess = () => {
-                this._supervisorInfo.stopProcess(server.ip,
+                this._supervisorInfo.stopProcess(server.addr,
                     server.port,
-                    process.group + ":" + process.name);
+                    process.group + ":" + process.name)
+                    .subscribe(
+                        data => {this.operationResult = data;},
+                        error => {this.error = true; console.log(error);},
+                        () => console.log('Process Stopped')
+                    );
             };
 
             stopProcess();
         }
-        /*else{//start her
-            startProcess(server, process);
-        }*/
+        else{//start here
+            let startProcess = () => {
+                this._supervisorInfo.startProcess(server.addr,
+                    server.port,
+                    process.group + ":" + process.name)
+                    .subscribe(
+                        data => {this.operationResult = data;},
+                        error => {this.error = true; console.log(error);},
+                        () => console.log('Process Started')
+                    );
+            };
+            startProcess();
+
+        }
     }
 
 

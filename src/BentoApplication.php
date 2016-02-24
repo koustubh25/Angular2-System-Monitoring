@@ -11,7 +11,8 @@ require_once __DIR__ . '/../src/ConfigurationProvider.php';
 require_once __DIR__ . '/../src/gearman/GearmanFacadeProvider.php';
 require_once __DIR__ . '/../src/supervisor/SupervisorFacadeProvider.php';
 use Silex\Application,
-    Silex\Provider\MonologServiceProvider;
+    Silex\Provider\MonologServiceProvider,
+    JDesrosiers\Silex\Provider\CorsServiceProvider;
 
 
 class BentoApplication extends Application
@@ -38,6 +39,10 @@ class BentoApplication extends Application
         $this->register(new GearmanFacadeProvider());
 
         $this->register(new SupervisorFacadeProvider());
+
+        $this->register(new CorsServiceProvider(), array(
+            "cors.allowOrigin" => "*",
+        ));
 
 
     }

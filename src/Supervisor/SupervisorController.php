@@ -65,7 +65,7 @@ class SupervisorController implements ControllerProviderInterface
 
             $status = $app['supervisor']->startProcess($ip, $port, $processName);
 
-            return new Response(new JsonResponse($status));
+            return new JsonResponse($status);
         });
 
         $controllers->post('/restart/all', function(Request $req) use ($app){
