@@ -2,7 +2,7 @@ import {Injectable} from 'angular2/core';
 import {SUPERVISOR_PROCESSES} from '../mock/supervisor_all_jobs';
 import {Http, Response, Headers, RequestOptions} from 'angular2/http';
 import {config} from '../config/config';
-import { Subject } from 'rxjs/Subject';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class SupervisorService {
@@ -10,8 +10,13 @@ export class SupervisorService {
     constructor(private http:Http){}
 
     makeHtpGetRequest(url){
-        return this.http.get(url)
-            .map(res =>res.json())
+
+        return Observable.interval(config.SUPERVISOR_REFRESH_INTERVAL)
+            .switchMap(() => this.http.get(url))
+            .map(res => res.json()
+    );
+        /*return this.http.get(url)
+            .map(res =>res.json());*/
     }
 
     makeHttpPostRequest(url, body, options){

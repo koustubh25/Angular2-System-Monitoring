@@ -19,11 +19,13 @@ export class SupervisorComponent implements OnInit{
     protected error: boolean;
     protected button:any;
     protected operationResult: any;
+    private init: boolean;
 
 	constructor(private _supervisorInfo:SupervisorService,
                 private el:ElementRef){}
 
 	ngOnInit(){
+        this.init = true;
         this.getSupervisorServers();
 	}
 
@@ -45,7 +47,19 @@ export class SupervisorComponent implements OnInit{
             .subscribe(
                 data => {
                     this.supervisorServers = data;
-                    this.initialize()
+                    if(this.init){
+                        this.init = false;
+                        this.initialize();
+                    }
+                    else{
+                        //parse presently selected server
+                        for(var index in data){
+                            let server = data[index];
+                            if(server.addr == this.server.addr)
+                                this.serverDetails(server);
+                        }
+
+                    }
 
                 },
                 error => {this.error = true; console.log(error);}
