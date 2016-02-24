@@ -1,7 +1,7 @@
 import {Component, AfterViewInit} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 import {PrivateServersComponent} from '../private-server/privateServers.component';
-import {GearmanUiComponent} from '../gearman-ui/gearmanUi.component';
+import {GearmanComponent} from '../gearman/gearman.component';
 import {SupervisorComponent} from '../supervisor/supervisor.component';
 import {ServerMonitorComponent} from '../server-monitor/serverMonitor.component';
 import {ElementRef} from "angular2/core";
@@ -22,9 +22,9 @@ declare var componentHandler:any;
   useAsDefault: true
 },
 {
-  path: '/gearman-ui/...',
-  name: 'GearmanUi', 
-  component: GearmanUiComponent
+  path: '/gearman',
+  name: 'Gearman',
+  component: GearmanComponent
 },
 {
   path: '/supervisor-monitor', 

@@ -9,9 +9,9 @@ export class SupervisorService {
 
     constructor(private http:Http){}
 
-    makeHtpGetRequest(url){
+    makeHttpGetRequest(url){
 
-        return Observable.interval(config.SUPERVISOR_REFRESH_INTERVAL)
+        return Observable.interval(config.SUPERVISOR_REFRESH_INTERVAL * 1000)
             .switchMap(() => this.http.get(url))
             .map(res => res.json()
     );
@@ -27,7 +27,7 @@ export class SupervisorService {
     getSupervisorInfo(){
         let url = config.SUPERVISOR_API_BASE + "/info"
 
-        return this.makeHtpGetRequest(url);
+        return this.makeHttpGetRequest(url);
     }
 
     buildBody(ip, port, processName){

@@ -21,10 +21,11 @@ export class SupervisorComponent implements OnInit{
     protected operationResult: any;
     private init: boolean;
 
-	constructor(private _supervisorInfo:SupervisorService,
+	constructor(private _supervisorService:SupervisorService,
                 private el:ElementRef){}
 
 	ngOnInit(){
+        //this.show_error("something");
         this.init = true;
         this.getSupervisorServers();
 	}
@@ -43,7 +44,7 @@ export class SupervisorComponent implements OnInit{
 
 	getSupervisorServers(){
 
-		this._supervisorInfo.getSupervisorInfo()
+		this._supervisorService.getSupervisorInfo()
             .subscribe(
                 data => {
                     this.supervisorServers = data;
@@ -95,7 +96,7 @@ export class SupervisorComponent implements OnInit{
         if(process.statename == "RUNNING"){
 
             let stopProcess = () => {
-                this._supervisorInfo.stopProcess(server.addr,
+                this._supervisorService.stopProcess(server.addr,
                     server.port,
                     process.group + ":" + process.name)
                     .subscribe(
@@ -109,7 +110,7 @@ export class SupervisorComponent implements OnInit{
         }
         else{//start here
             let startProcess = () => {
-                this._supervisorInfo.startProcess(server.addr,
+                this._supervisorService.startProcess(server.addr,
                     server.port,
                     process.group + ":" + process.name)
                     .subscribe(
@@ -125,7 +126,7 @@ export class SupervisorComponent implements OnInit{
 
     startAll(server){
         let startAll = () => {
-            this._supervisorInfo.startAll(server.addr,
+            this._supervisorService.startAll(server.addr,
                                         server.port)
                 .subscribe(
                     data => {this.operationResult = data;},
@@ -141,7 +142,7 @@ export class SupervisorComponent implements OnInit{
 
     stopAll(server){
         let stopAll = () => {
-            this._supervisorInfo.stopAll(server.addr,
+            this._supervisorService.stopAll(server.addr,
                 server.port)
                 .subscribe(
                     data => {this.operationResult = data;},
@@ -156,7 +157,7 @@ export class SupervisorComponent implements OnInit{
 
     restartAll(server){
         let restartAll = () => {
-            this._supervisorInfo.restartAll(server.addr,
+            this._supervisorService.restartAll(server.addr,
                 server.port)
                 .subscribe(
                     data => {this.operationResult = data;},
@@ -167,5 +168,16 @@ export class SupervisorComponent implements OnInit{
 
         restartAll();
 
+    }
+
+    show_error(err){
+        var snackbarContainer = this.el.nativeElement.querySelector("#toast_error")
+        var data = {
+            message: 'Button color changed.',
+            timeout: 2000,
+            actionText: 'Undo'
+        };
+
+        //snackbarContainer.MaterialSnackbar.showSnackbar(data);
     }
 }

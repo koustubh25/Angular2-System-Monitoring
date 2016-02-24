@@ -1,0 +1,56 @@
+<div mdl>
+    <div class="server_list">
+        <div class="mdl-list" *ngFor="#server of gearmanServers">
+
+            <div class="mdl-list__item mdl-list__item--three-line" (click)="serverDetails(server)">
+
+        <span class="mdl-list__item-primary-content">
+
+        <i class="material-icons mdl-list__item-avatar">computer</i>
+
+      <span>{{server.name}}</span>
+        <span class="mdl-list__item-text-body">{{server.addr}} <br/>
+            <span [ngClass]="{connected : server.up==true, disconnected : server.up==false}">
+                {{isConnected(server.up)}}
+            </span>
+        </span>
+    </span>
+            </div>
+        </div>
+
+    </div>
+    <div class="server_data" *ngIf="server != null">
+
+        <span [ngSwitch]='server.up'>
+            <span *ngSwitchWhen='false' class="error_msg">{{server.error}}</span>
+            <span *ngSwitchWhen='true'>
+
+        <table  class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+
+            <thead align="">
+            <tr>
+                <th>Function Name</th>
+                <th>Jobs in Queue</th>
+                <th>Currently running Jobs</th>
+                <th>Available Workers</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr *ngFor="#function of server.status">
+                <td>{{function.function_name}}</td>
+                <td>{{function.in_queue}}</td>
+                <td >{{function.jobs_running}}</td>
+                <td>{{function.capable_workers}}</td>
+            </tr>
+            </tbody>
+        </table>
+                </span>
+            </span>
+    </div>
+    <div class="main_error_msg" id="toast_error" *ngIf="server == null">
+        You haven't configured any Supervisor servers. You can configure them in the <pre>config.yml</pre> file
+    </div>
+
+</div>
+

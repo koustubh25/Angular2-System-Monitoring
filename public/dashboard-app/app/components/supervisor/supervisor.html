@@ -1,12 +1,12 @@
 <div mdl>
     <div class="server_list">
-        <div class="demo-list-action mdl-list" *ngFor="#server of supervisorServers">
+        <div class="mdl-list" *ngFor="#server of supervisorServers">
 
             <div class="mdl-list__item mdl-list__item--three-line" (click)="serverDetails(server)">
 
         <span class="mdl-list__item-primary-content">
 
-        <i class="material-icons mdl-list__item-avatar">computer</i>
+        <i class="material-icons mdl-list__item-avatar md-48">computer</i>
 
       <span>{{server.name}}</span>
         <span class="mdl-list__item-text-body">{{server.addr}} <br/>
@@ -66,6 +66,9 @@
         </table>
                 </span>
             </span>
+    </div>
+    <div class="main_error_msg" id="toast_error" *ngIf="server == null">
+        You haven't configured any Supervisor servers. You can configure them in the <pre>config.yml</pre> file
     </div>
 
 </div>
