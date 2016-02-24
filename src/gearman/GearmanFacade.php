@@ -47,6 +47,7 @@ class GearmanFacade
         catch (\Exception $e) {
             $server['error'] = $this->serverErrorHandler($e, $server['name']);
             $server['up'] = false;
+            $manager = null;
         }
         return array(
             "server" => $server,
