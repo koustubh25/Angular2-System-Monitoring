@@ -24,6 +24,16 @@
         <span [ngSwitch]='server.up'>
             <span *ngSwitchWhen='false' class="error_msg">{{server.error}}</span>
             <span *ngSwitchWhen='true'>
+
+                <button class="mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="startAll(server)">
+                    Start All
+                </button>
+                <button class="mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="stopAll(server)">
+                    Stop All
+                </button>
+                <button class="mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="restartAll(server)">
+                    Restart All
+                </button>
         <table  class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
 
             <thead align="">
@@ -57,15 +67,6 @@
                 </span>
             </span>
     </div>
-
-
-
-    <div id="demo-snackbar-example" class="mdl-js-snackbar mdl-snackbar">
-        <div class="mdl-snackbar__text"></div>
-        <button class="mdl-snackbar__action" type="button"></button>
-    </div>
-
-
 
 </div>
 

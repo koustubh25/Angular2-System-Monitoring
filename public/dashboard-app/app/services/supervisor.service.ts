@@ -39,8 +39,8 @@ export class SupervisorService {
 
         let url = config.SUPERVISOR_API_BASE + "/stop/process";
         let body = this.buildBody(ip, port, processName);
-        let header = new Headers({ 'Content-Type': 'application/json'});
-        let options = new RequestOptions({ headers: header });
+        let options = new RequestOptions({ headers:
+            new Headers({ 'Content-Type': 'application/json'}) });
         return this.makeHttpPostRequest(url, body, options)
 
     }
@@ -49,8 +49,35 @@ export class SupervisorService {
 
         let url = config.SUPERVISOR_API_BASE + "/start/process";
         let body = this.buildBody(ip, port, processName);
-        let header = new Headers({ 'Content-Type': 'application/json'});
-        let options = new RequestOptions({ headers: header });
+        let options = new RequestOptions({ headers:
+            new Headers({ 'Content-Type': 'application/json'}) });
+        return this.makeHttpPostRequest(url, body, options)
+
+    }
+
+    startAll(ip, port){
+        let url = config.SUPERVISOR_API_BASE + "/start/all";
+        let body = this.buildBody(ip, port, null);
+        let options = new RequestOptions({ headers:
+            new Headers({ 'Content-Type': 'application/json'}) });
+        return this.makeHttpPostRequest(url, body, options)
+
+    }
+
+    stopAll(ip, port){
+        let url = config.SUPERVISOR_API_BASE + "/stop/all";
+        let body = this.buildBody(ip, port, null);
+        let options = new RequestOptions({ headers:
+            new Headers({ 'Content-Type': 'application/json'}) });
+        return this.makeHttpPostRequest(url, body, options)
+
+    }
+
+    restartAll(ip, port){
+        let url = config.SUPERVISOR_API_BASE + "/restart/all";
+        let body = this.buildBody(ip, port, null);
+        let options = new RequestOptions({ headers:
+            new Headers({ 'Content-Type': 'application/json'}) });
         return this.makeHttpPostRequest(url, body, options)
 
     }

@@ -109,5 +109,49 @@ export class SupervisorComponent implements OnInit{
         }
     }
 
+    startAll(server){
+        let startAll = () => {
+            this._supervisorInfo.startAll(server.addr,
+                                        server.port)
+                .subscribe(
+                    data => {this.operationResult = data;},
+                    error => {this.error = true; console.log(error);},
+                    () => console.log('All processes Started')
+                );
+        };
 
+        startAll();
+
+
+    }
+
+    stopAll(server){
+        let stopAll = () => {
+            this._supervisorInfo.stopAll(server.addr,
+                server.port)
+                .subscribe(
+                    data => {this.operationResult = data;},
+                    error => {this.error = true; console.log(error);},
+                    () => console.log('All processes stopped')
+                );
+        };
+
+        stopAll();
+
+    }
+
+    restartAll(server){
+        let restartAll = () => {
+            this._supervisorInfo.restartAll(server.addr,
+                server.port)
+                .subscribe(
+                    data => {this.operationResult = data;},
+                    error => {this.error = true; console.log(error);},
+                    () => console.log('All processes restarted')
+                );
+        };
+
+        restartAll();
+
+    }
 }
