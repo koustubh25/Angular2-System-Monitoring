@@ -1,64 +1,55 @@
-<div mdl style="margin: auto; top:40px; position:relative; display:inline-block;">
+<div mdl class="server_data" *ngIf="batchServers != null">
 <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="list_private_servers">
     <thead align="">
     <tr>
-        <th> Private Server IP</th>
+        <th> IP address</th>
         <th> Host ID</th>
         <th> Number of Video workers</th>
         <th> Number of PDF workers</th>
+        <th> Type </th>
         <th> Switch </th>
     </tr>
     </thead>
-    <tbody>
-        <tr *ngFor="#privateServer of privateServers">
+    <tbody mdl>
+        <tr *ngFor="#batchServer of batchServers">
+            <td>{{batchServer.ip}}</td>
+            <td>{{batchServer.id_host}}</td>
+            <td>{{batchServer.video_convert_workers}}</td>
+            <td>{{batchServer.pdf_convert_workers}}</td>
+            <td>{{batchServer.type}}</td>
             <td>
-                {{privateServer.server_ip}}
-            </td>
-            <td>
-                {{privateServer.id_host}}
-            </td>
-            <td>
-                {{privateServer.video_convert_workers}}
-            </td>
-            <td>
-                {{privateServer.pdf_convert_workers}}
-            </td>
-            <td>
-                <div id="switch_public" class="material-icons" (click)="privateToPublic(privateServer.server_ip)">undo</div>
-                <div class="mdl-tooltip  mdl-tooltip--large" for="switch_public">
-                    <strong>Switch to Public Server</strong>
-                </div>
+                <div (click)="switchServers(batchServer)" class="material-icons">undo</div>
             </td>
         </tr>
-        <tr *ngIf="newEntry == 1">
+        <tr *ngIf="newServer == true">
             <td>
-                <div class="mdl-textfield mdl-js-textfield millvi-half-width">
-                    <input class="mdl-textfield__input" type="text" id="private_sever_ip" [(ngModel)]="newServer.ip">
-                    <label class="mdl-textfield__label" for="private_sever_ip">IP</label>
-                </div>
+
             </td>
             <td>
-                <div class="mdl-textfield mdl-js-textfield millvi-half-width">
+                <div class="mdl-textfield mdl-js-textfield half-width">
                     <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="host_id" [(ngModel)]="newServer.id_host">
                     <label class="mdl-textfield__label" for=host_id>Host ID</label>
                     <span class="mdl-textfield__error">Not a valid host id!</span>
                 </div>
             </td>
             <td>
-                <div class="mdl-textfield mdl-js-textfield millvi-half-width">
+                <div class="mdl-textfield mdl-js-textfield half-width">
                     <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="video_workers" [(ngModel)]="newServer.video_workers">
                     <label class="mdl-textfield__label" for="video_workers">Video Workers</label>
                     <span class="mdl-textfield__error">Not Valid number of workers!</span>
                 </div>
             </td>
             <td>
-                <div class="mdl-textfield mdl-js-textfield millvi-half-width">
-                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="pdf_workers" [(ngModel)]="newServer.pdf_workers">
-                    <label class="mdl-textfield__label" for="pdf_workers">PDF Workers</label>
-                    <span class="mdl-textfield__error">Not Valid number of workers!</span>
+                <div class="mdl-textfield mdl-js-textfield half-width">
+                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="pdf_workers" [(ngModel)]="newServer.pdf_workers">
+                <label class="mdl-textfield__label" for="pdf_workers">PDF Workers</label>
+                <span class="mdl-textfield__error">Not Valid number of workers!</span>
                 </div>
             </td>
-
+            <td>
+                {{newServerType}}
+            </td>
+            <td></td>
         </tr>
 
     </tbody>
@@ -66,20 +57,12 @@
 
 </table>
 
-    <div *ngIf="newEntry == 1" >
 
-        <button class="mdl-button mdl-js-button mdl-button--raised millvi-add-private-server-btn" (click)="cancelPrivateServer()">
-            Cancel
-        </button>
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent millvi-add-private-server-btn" (click)="addPrivateServer(newServer)">
-            Submit
-        </button>
-    </div>
 
-        <button *ngIf="newEntry == 0" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored millvi-add-private-server-btn" (click)="newServerEntry()">
-            <i class="material-icons">add</i>
-        </button>
+</div>
 
+<div class="main_error_msg" id="toast_error" *ngIf="batchServers == null">
+    Loading Batch Server information. Please wait...
 </div>
 
 

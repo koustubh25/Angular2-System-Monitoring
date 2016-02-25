@@ -1,6 +1,7 @@
 import {Component, AfterViewChecked} from 'angular2/core';
 import { PrivateServer } from './privateServer'
-import { PrivateServerService } from '../../services/private-server.service';
+import {BatchServerType} from './BatchServerType';
+import { BatchServerService } from '../../services/batch-server.service';
 import {OnInit} from 'angular2/core';
 import {ElementRef} from "angular2/core";
 import {MDL} from '../../directives/MaterialDesignLiteUpgradeElement';
@@ -12,73 +13,55 @@ declare var componentHandler:any;
 @Component({
     selector: 'private-server',
 	templateUrl: 'app/components/private-server/privateServer.html',
-    providers: [PrivateServerService],
+    providers: [BatchServerService],
     directives: [MDL],
     styleUrls: ['app/components/private-server/styles/private-server.css']
 })
 export class PrivateServersComponent implements OnInit, AfterViewChecked{
 
-    element : ElementRef;
-    constructor(private _privateServerService: PrivateServerService) {
 
-        //this.element =el;
-    }
-    privateServers: PrivateServer[];
-    private newEntry: number; //Add form for entering new private server details
-    private newServer: PrivateServer;
-    private loading:boolean;
+    private batchServers: any;
+    private newServer: boolean;
+    private newServerType: BatchServerType;
+
+    constructor(private _BatchServerService: BatchServerService) {}
 
     ngOnInit(){
-        this.newEntry = 0;
-        this.loading = true;
-        this.getPrivateServers();
+        this.batchServers = null;
+        this.newServer = false;
+        this.newServerType = null;
+        this.getBatchServers();
     }
 
-    /*ngAfterViewInit(){
-        window.componentHandler.upgradeAllRegistered();
-    }*/
-
-    getPrivateServers(){
-        /*this._privateServerService.getPrivateServers()
+    getBatchServers(){
+        this._BatchServerService.getBatchServersInfo()
             .subscribe(
-                data => this.privateServers = data,
-                error =>  console.log("error")
-            );*/
-        this.privateServers = this._privateServerService.getPrivateServers();
-
-    }
-    newServerEntry(){
-        this.newServer = new PrivateServer();
-        this.newEntry = 1;
-    }
-
-    addPrivateServer(newServer){
-
-        //supervisor port number can be changed here -> 9001
-        /*this._privateServerService.addPrivateServer(newServer.ip, "9001", newServer.id_host, newServer.pdf_workers, newServer.video_workers)
-            .subscribe(
-                data => {this.getPrivateServers(); this.cancelPrivateServer();},
-                error =>  console.log(error)
-            );*/
+                data => {
+                    this.batchServers = data;
+                    console.log(data);
+                },
+                    error => console.log("some error")
+            );
 
 
     }
 
-    privateToPublic(ip){
-       /* this._privateServerService.removePrivateServer(ip, "9001")
-            .subscribe(
-                data => this.getPrivateServers(),
-                error =>  console.log(error)
-        );*/
-
-    }
-
-    cancelPrivateServer(){
-        this.newEntry = 0;
+    switchServers(batchServer){
+        this.newServer = true;
+        console.log(batchServer.type);
+        let toggle = (type) => {
+            if(type == "public")
+                this.newServerType = BatchServerType.PRIVATE;
+            else
+                this.newServerType = BatchServerType.PUBLIC;
+        };
+        
+        toggle(batchServer.type);
     }
 
     ngAfterViewChecked(){
-        //componentHandler.upgradeAllRegistered();
-
+        window.componentHandler.upgradeAllRegistered();
     }
+
+
 }

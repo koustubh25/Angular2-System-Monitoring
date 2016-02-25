@@ -5,7 +5,8 @@ export var config:any =
 {
 
 //Private server information
-"PRIVATE_SERVER_HOST" : "http://private-server.eviry.com",
+"BATCH_SERVERS_API_BASE" : "http://batch-servers",
+"BATCH_SERVERS_REFRESH_INTERVAL" : 2,
 
 //Gearman
 "GEARMAN_API_BASE" : "http://bento/gearman",
