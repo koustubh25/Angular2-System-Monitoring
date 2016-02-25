@@ -1,4 +1,11 @@
 {
+  "name": "eviry/bento",
+  "authors": [
+    {
+      "name": "Eviry Developers",
+      "email": "dev@eviry.com"
+    }
+  ],
   "require": {
     "php": ">=5.4",
     "silex/silex": "~1.3",
