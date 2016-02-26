@@ -3,6 +3,7 @@
     <thead align="">
     <tr>
         <th> IP address</th>
+        <th> Port</th>
         <th> Host ID</th>
         <th> Number of Video workers</th>
         <th> Number of PDF workers</th>
@@ -13,6 +14,7 @@
     <tbody mdl>
         <tr *ngFor="#batchServer of batchServers">
             <td>{{batchServer.ip}}</td>
+            <td>{{batchServer.port}}</td>
             <td>{{batchServer.id_host}}</td>
             <td>{{batchServer.video_convert_workers}}</td>
             <td>{{batchServer.pdf_convert_workers}}</td>
@@ -21,36 +23,64 @@
                 <div (click)="switchServers(batchServer)" class="material-icons">undo</div>
             </td>
         </tr>
-        <tr *ngIf="newServer == true">
-            <td>
+        <tr  *ngIf="(editServer == true) && (newBatchServer.server_type == 'private')
+        || newServer == true">
 
+            <td>
+                <div *ngIf="newServer == true" class="mdl-textfield mdl-js-textfield half-width">
+                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="ip" [(ngModel)]="newBatchServer.ip">
+                    <label class="mdl-textfield__label" for=id_host>Host ID</label>
+                    <span class="mdl-textfield__error">Not a valid host id!</span>
+                </div>
+
+                <div *ngIf="newServer == false">{{newBatchServer.ip}}</div>
             </td>
             <td>
                 <div class="mdl-textfield mdl-js-textfield half-width">
-                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="host_id" [(ngModel)]="newServer.id_host">
-                    <label class="mdl-textfield__label" for=host_id>Host ID</label>
+                    <input class="mdl-textfield__input" type="text" value="9001" pattern="-?[0-9]*(\.[0-9]+)?" id="port" [(ngModel)]="newBatchServer.port">
+                    <label class="mdl-textfield__label" for=id_host>9001</label>
+                    <span class="mdl-textfield__error">Not a valid port</span>
+                </div>
+            </td>
+            <td>
+                <div class="mdl-textfield mdl-js-textfield half-width">
+                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="id_host" [(ngModel)]="newBatchServer.id_host">
+                    <label class="mdl-textfield__label" for=id_host>Host ID</label>
                     <span class="mdl-textfield__error">Not a valid host id!</span>
                 </div>
             </td>
             <td>
                 <div class="mdl-textfield mdl-js-textfield half-width">
-                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="video_workers" [(ngModel)]="newServer.video_workers">
+                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="video_workers" [(ngModel)]="newBatchServer.video_convert_workers">
                     <label class="mdl-textfield__label" for="video_workers">Video Workers</label>
                     <span class="mdl-textfield__error">Not Valid number of workers!</span>
                 </div>
             </td>
             <td>
                 <div class="mdl-textfield mdl-js-textfield half-width">
-                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="pdf_workers" [(ngModel)]="newServer.pdf_workers">
+                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="pdf_workers" [(ngModel)]="newBatchServer.pdf_convert_workers">
                 <label class="mdl-textfield__label" for="pdf_workers">PDF Workers</label>
                 <span class="mdl-textfield__error">Not Valid number of workers!</span>
                 </div>
             </td>
             <td>
-                {{newServerType}}
+                <div *ngIf="newServer == true">
+                    <div class="mdl-select mdl-js-select mdl-select--floating-label">
+                        <select class="mdl-select__input" id="serverType" name="serverType" [(ngModel)]="newBatchServer.server_type">
+                            <option value="public" selected>public</option>
+                            <option value="private">private</option>
+                        </select>
+                    </div>
+                </div>
+                <div *ngIf="newServer == false">
+                {{newBatchServer.server_type}}
+                </div>
             </td>
-            <td></td>
+            <td>
+
+            </td>
         </tr>
+
 
     </tbody>
 
@@ -59,13 +89,76 @@
 
 
 
+    <button  id="addBatchServerButton" *ngIf="editServer == false && newServer == false" class="mdl-button
+    mdl-js-button
+    mdl-button--fab
+    mdl-js-ripple-effect
+    mdl-button--colored">
+        <i class="material-icons">add</i>
+    </button>
+    <ul class="mdl-menu mdl-js-menu" for="addBatchServerButton">
+        <li class="mdl-menu__item" (click) = "newEntry()">Add New Batch Server</li>
+        <li class="mdl-menu__item" (click) = "addBatchServersById()">Add Multiple Batch Servers by Host ID</li>
+    </ul>
+
+    <div *ngIf="addByHost == true">
+        <div mdl class="mdl-textfield mdl-js-textfield half-width">
+            <input  type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="byhost_id_host" [(ngModel)]="addByHostIdHost">
+            <label  for=byhost_id_host>Host ID</label>
+            <span class="mdl-textfield__error">Not a valid host id!</span>
+
+            <input  type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="byhost_video_workers" [(ngModel)]="addByHostVideoWorkers">
+            <label  for=byhost_video_workers>Video Workers</label>
+            <span class="mdl-textfield__error">Not a valid Video Workers!</span>
+
+            <input  type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="byhost_pdf_workers" [(ngModel)]="addByHostPdfWorkers">
+            <label  for=byhost_pdf_workers>PDF Workers</label>
+            <span class="mdl-textfield__error">Not a valid PDF Workers!</span>
+
+
+            <input  type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="byhost_pdf_workers_ip" [(ngModel)]="addByHostCurrentIp">
+            <label  for=id_host>IP Address</label>
+            <span class="mdl-textfield__error">Not a valid IP!</span>
+
+            <input  type="text" value="9001" id="byhost_pdf_workers_port" [(ngModel)]="addByHostCurrentPort">
+            <label  for=id_host>IP Address</label>
+            <span class="mdl-textfield__error">Not a valid port!</span>
+
+            <button (click)="addToServersByHostIdList(addByHostIdHost
+                                                     , addByHostVideoWorkers
+                                                     , addByHostPdfWorkers
+                                                     , addByHostCurrentIp
+                                                     , addByHostCurrentPort)">
+                Add more
+            </button>
+
+        </div>
+        <div  *ngFor="#server of addByHostServers.servers">
+            {{server.ip}}
+            {{server.port}}
+            <button> delete</button>
+        </div>
+        <button (click) = "addServersByIps()">Submit</button>
+
+    </div>
+
+
+
+    <div *ngIf="(editServer == true  && newBatchServer.server_type == 'private')
+    || newServer == true">
+
+        <button (click)="cancelEditServer()">
+            Cancel
+        </button>
+        <button (click)="switchBatchServer(newBatchServer)">
+            Submit
+        </button>
+        </div>
+
 </div>
+
+
 
 <div class="main_error_msg" id="toast_error" *ngIf="batchServers == null">
     Loading Batch Server information. Please wait...
 </div>
-
-
-
-
-

@@ -1,6 +1,4 @@
-import { PrivateServer } from '../components/private-server/privateServer';
-
-export var PRIVATE_SERVERS: PrivateServer[] = [
+export var PRIVATE_SERVERS: any = [
 {
   "server_ip" : "127.0.0.1",
   "id_host" : 23,
