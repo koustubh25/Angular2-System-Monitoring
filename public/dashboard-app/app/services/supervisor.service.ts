@@ -13,8 +13,9 @@ export class SupervisorService {
 
         return Observable.interval(config.SUPERVISOR_REFRESH_INTERVAL * 1000)
             .switchMap(() => this.http.get(url))
-            .map(res => res.json()
-    );
+            .map(res => res.json())
+            .timeout(config.REQUEST_TIMEOUT * 1000, new Error('Time out occurred'))
+
         /*return this.http.get(url)
             .map(res =>res.json());*/
     }

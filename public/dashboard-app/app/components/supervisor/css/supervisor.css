@@ -15,19 +15,19 @@ table tbody .STARTING{
 
 table tbody .btn_RUNNING{
     color:white;
-    background-color: red;
+    background-color: rgb(244,67,54);
     font-weight: bolder;
 }
 
 table tbody .btn_STOPPED{
     color:white;
-    background-color: green;
+    background-color: rgb(76,175,80);
     font-weight: bolder;
 }
 
 
 table tbody .STOPPED{
-    color:red;
+    color:rgb(244,67,54);
     font-weight: bolder;
 
 }

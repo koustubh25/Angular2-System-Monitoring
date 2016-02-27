@@ -25,13 +25,13 @@
             <span *ngSwitchWhen='false' class="error_msg">{{server.error}}</span>
             <span *ngSwitchWhen='true'>
 
-                <button class="mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="startAll(server)">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="startAll(server)">
                     Start All
                 </button>
-                <button class="mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="stopAll(server)">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="stopAll(server)">
                     Stop All
                 </button>
-                <button class="mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="restartAll(server)">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="restartAll(server)">
                     Restart All
                 </button>
         <table  class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
@@ -54,11 +54,12 @@
                 <td>{{process.description}}</td>
                 <td>
                     <button class="{{getButtonData(process.statename)}}
+                                    mdl-button
                                     mdl-js-button
                                     mdl-button--raised
                                     mdl-js-ripple-effect
                                     mdl-button--accent" (click)="alterProcess(server, process)">
-                            {{button}}
+                            <i class="material-icons">{{button}}</i>
                     </button>
                 </td>
             </tr>
@@ -67,9 +68,14 @@
                 </span>
             </span>
     </div>
-    <div class="main_error_msg" id="toast_error" *ngIf="server == null">
+    <div class="main_error_msg" *ngIf="server == null">
         If you have already configured Supervisor servers in the <pre>config.yml</pre> file, please wait.
     </div>
 
 </div>
+
+<div id="toast_error" class="mdl-js-snackbar mdl-snackbar">
+    <div class="mdl-snackbar__text mdl-snackbar__action"></div>
+</div>
+
 

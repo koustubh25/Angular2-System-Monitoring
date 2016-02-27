@@ -22,7 +22,7 @@ export class SupervisorComponent implements OnInit{
     private init: boolean;
 
 	constructor(private _supervisorService:SupervisorService,
-                private el:ElementRef){}
+                private _el:ElementRef){}
 
 	ngOnInit(){
         //this.show_error("something");
@@ -63,7 +63,11 @@ export class SupervisorComponent implements OnInit{
                     }
 
                 },
-                error => {this.error = true; console.log(error);}
+                error => {
+                    this.error = true;
+                    console.log(error);
+                    this.showError(error);
+                }
             );
 	}
 
@@ -84,9 +88,9 @@ export class SupervisorComponent implements OnInit{
     getButtonData(state){
 
         if(state == 'RUNNING')
-            this.button = 'Stop';
+            this.button = 'stop';
         else
-            this.button = 'Start';
+            this.button = 'play arrow';
         return 'btn_' + state;
 
     }
@@ -101,7 +105,11 @@ export class SupervisorComponent implements OnInit{
                     process.group + ":" + process.name)
                     .subscribe(
                         data => {this.operationResult = data;},
-                        error => {this.error = true; console.log(error);},
+                        error => {
+                            this.error = true;
+                            console.log(error);
+                            this.showError(error);
+                        },
                         () => console.log('Process Stopped')
                     );
             };
@@ -146,7 +154,11 @@ export class SupervisorComponent implements OnInit{
                 server.port)
                 .subscribe(
                     data => {this.operationResult = data;},
-                    error => {this.error = true; console.log(error);},
+                    error => {
+                        this.error = true;
+                        console.log(error);
+                        this.showError(error);
+                    },
                     () => console.log('All processes stopped')
                 );
         };
@@ -161,7 +173,11 @@ export class SupervisorComponent implements OnInit{
                 server.port)
                 .subscribe(
                     data => {this.operationResult = data;},
-                    error => {this.error = true; console.log(error);},
+                    error => {
+                        this.error = true;
+                        console.log(error);
+                        this.showError(error);
+                    },
                     () => console.log('All processes restarted')
                 );
         };
@@ -170,14 +186,25 @@ export class SupervisorComponent implements OnInit{
 
     }
 
-    show_error(err){
-        var snackbarContainer = this.el.nativeElement.querySelector("#toast_error")
-        var data = {
-            message: 'Button color changed.',
-            timeout: 2000,
-            actionText: 'Undo'
+    showError(errorMessage)
+    {
+        window.componentHandler.upgradeAllRegistered();
+
+        let snackbarContainer = this._el.nativeElement.querySelector('#toast_error');
+
+        let handler = (event) => {
+            snackbarContainer.className= "";
+            console.log("handler called");
         };
 
-        //snackbarContainer.MaterialSnackbar.showSnackbar(data);
+        var data = {
+            message: errorMessage,
+            timeout: 3000,
+            actionHandler: handler,
+            actionText: 'Undo'
+        };
+        snackbarContainer.MaterialSnackbar.showSnackbar(data);
+
+
     }
 }

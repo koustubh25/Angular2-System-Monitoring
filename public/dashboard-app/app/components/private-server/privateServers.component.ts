@@ -43,7 +43,6 @@ export class PrivateServersComponent implements OnInit, AfterViewChecked, AfterV
     }
 
     getBatchServers(){
-        console.log("getBatchServers called");
         this._BatchServerService.getBatchServersInfo()
             .subscribe(
                 data => {
@@ -76,6 +75,7 @@ export class PrivateServersComponent implements OnInit, AfterViewChecked, AfterV
     cancelEditServer(){
         this.editServer = false;
         this.newServer = false;
+        window.componentHandler.upgradeAllRegistered();
     }
 
     switchBatchServer(newBatchServer){
@@ -127,7 +127,6 @@ export class PrivateServersComponent implements OnInit, AfterViewChecked, AfterV
 
     ngAfterViewInit(){
         componentHandler.upgradeAllRegistered();
-
     }
 
     addBatchServersById(){
@@ -164,6 +163,5 @@ export class PrivateServersComponent implements OnInit, AfterViewChecked, AfterV
             );
 
     }
-
 
 }

@@ -50,9 +50,16 @@
                 </span>
             </span>
     </div>
-    <div class="main_error_msg" id="toast_error" *ngIf="server == null">
+    <div class="main_error_msg" *ngIf="server == null">
         If you have already configured Gearman servers in the <pre>config.yml</pre> file, please wait.
     </div>
 
+
+
 </div>
+
+<div id="toast_error" class="mdl-js-snackbar mdl-snackbar">
+    <div class="mdl-snackbar__text mdl-snackbar__action"></div>
+</div>
+
 

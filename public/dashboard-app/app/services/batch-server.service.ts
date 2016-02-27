@@ -23,6 +23,7 @@ export class BatchServerService {
     makeHttpPostRequest(url, body, options){
         return this.http.post(url, body, options)
             .map(res =>  res.json());
+
     }
 
     buildBody(ip, port, id_host, video_workers, pdf_workers){
