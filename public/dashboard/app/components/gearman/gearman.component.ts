@@ -94,7 +94,7 @@ export class GearmanComponent implements OnInit, AfterViewInit {
 		};
 
 		var data = {
-			message: errorMessage,
+			message: errorMessage.json(),
 			timeout: 3000,
 			actionHandler: handler,
 			actionText: 'Undo'

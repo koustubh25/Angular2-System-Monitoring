@@ -88,9 +88,9 @@ export class SupervisorComponent implements OnInit{
     getButtonData(state){
 
         if(state == 'RUNNING')
-            this.button = 'stop';
+            this.button = 'Stop';
         else
-            this.button = 'play arrow';
+            this.button = 'Start';
         return 'btn_' + state;
 
     }
@@ -198,7 +198,7 @@ export class SupervisorComponent implements OnInit{
         };
 
         var data = {
-            message: errorMessage,
+            message: errorMessage.json(),
             timeout: 3000,
             actionHandler: handler,
             actionText: 'Undo'

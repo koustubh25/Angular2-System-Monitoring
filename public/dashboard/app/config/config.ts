@@ -9,7 +9,7 @@ BATCH_SERVERS_API_BASE : "http://batch-servers",
 BATCH_SERVERS_REFRESH_INTERVAL : 10,
 
 //Gearman
-"GEARMAN_API_BASE" : "http://ento/gearman",
+"GEARMAN_API_BASE" : "http://bento/gearman",
 GEARMAN_REFRESH_INTERVAL : 10, //in seconds
 
 //SUPERVISOR
