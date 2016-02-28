@@ -10,11 +10,11 @@ BATCH_SERVERS_REFRESH_INTERVAL : 10,
 
 //Gearman
 "GEARMAN_API_BASE" : "http://bento/gearman",
-GEARMAN_REFRESH_INTERVAL : 10, //in seconds
+GEARMAN_REFRESH_INTERVAL : 3, //in seconds
 
 //SUPERVISOR
 SUPERVISOR_API_BASE : "http://bento/supervisor",
-SUPERVISOR_REFRESH_INTERVAL : 10, //in seconds
+SUPERVISOR_REFRESH_INTERVAL : 3, //in seconds
 
 REQUEST_TIMEOUT : 120 //in seconds
 

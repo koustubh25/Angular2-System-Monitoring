@@ -1,6 +1,0 @@
-dashboard/app/components/dashboard/*.js*
-dashboard/app/components/gearman-ui/*.js*
-dashboard/app/components/private-server/*.js*
-dashboard/app/components/server-monitor/*.js*
-dashboard/app/components/supervisor/*.js*
-dashboard/node_modules

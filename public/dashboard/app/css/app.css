@@ -54,3 +54,10 @@
     background: rgba(152, 20, 20, 0.1) none repeat scroll 0% 0%;
     border-radius: 25px;
 }
+
+.loading_main{
+    left:40%;
+    width:20%;
+    top:50%;
+    position: absolute;
+}

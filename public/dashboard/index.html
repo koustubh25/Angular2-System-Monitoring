@@ -8,6 +8,9 @@
     <link rel="stylesheet" type="text/css" href="app/css/material.min.css">
     <link rel="stylesheet" type="text/css" href="app/css/app.css">
 
+    <link rel="stylesheet" type="text/css" href="app/components/netflix-vector/dist/styles/vendor.css">
+    <link rel="stylesheet" type="text/css" href="app/components/netflix-vector/dist/styles/main.css">
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" rel="stylesheet">
 
@@ -34,8 +37,8 @@
     <script defer src="node_modules/material-design-lite/dist/material.min.js"></script>
     <!--<script src="node_modules/dialog-polyfill/dialog-polyfill.js"></script>-->
     <!--<script src="node_modules/getmdl-select/getmdl-select.min.js"></script>-->
-    <!--<script src="app/components/server-monitor/netflix-vector/dist/scripts/vendors-6198c999_old.js"></script>
-    <script src="app/components/server-monitor/netflix-vector/dist/scripts/app-ab462e8c.js"></script> -->
+    <script src="app/components/netflix-vector/dist/scripts/vendor.js"></script>
+    <script src="app/components/netflix-vector/dist/scripts/app.js"></script>
 
 
 
@@ -58,7 +61,12 @@
 
 <body>
 <millvi-dashboard-app>
-    Loading
+    <div id="p2" class="mdl-progress
+                        mdl-js-progress
+                        mdl-progress__indeterminate
+                        loading_main">
+
+    </div>
 </millvi-dashboard-app>
 </body>
 

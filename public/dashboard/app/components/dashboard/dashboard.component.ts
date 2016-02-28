@@ -3,7 +3,7 @@ import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 import {PrivateServersComponent} from '../private-server/privateServers.component';
 import {GearmanComponent} from '../gearman/gearman.component';
 import {SupervisorComponent} from '../supervisor/supervisor.component';
-import {ServerMonitorComponent} from '../server-monitor/serverMonitor.component';
+import {NetflixVectorComponent} from '../netflix-vector/netflixVector.component';
 import {ElementRef} from "angular2/core";
 
 declare var componentHandler:any;
@@ -14,7 +14,6 @@ declare var componentHandler:any;
 	directives: [ROUTER_DIRECTIVES],
 })
 @RouteConfig([
-  // {path: '/', redirectTo: ['Dashboard'] },
   {
   path: '/private-server', 
   name: 'PrivateServers',
@@ -27,28 +26,15 @@ declare var componentHandler:any;
   component: GearmanComponent
 },
 {
-  path: '/supervisor-monitor', 
+  path: '/supervisor',
   name: 'Supervisor',
   component: SupervisorComponent
 },
 {
-  path: '/server-monitor', 
-  name: 'ServerMonitor', 
-  component: ServerMonitorComponent
+  path: '/netflix-vector',
+  name: 'NetflixVector',
+  component: NetflixVectorComponent
 }
 
 ])
-export class DashboardComponent{
-
-    element : ElementRef;
-  /*  constructor(el:ElementRef){
-         this.element = el;
-  }
-
-    ngAfterViewInit() {
-        //console.log(this.element);
-        //componentHandler.upgradeElement(this.element.nativeElement);
-        //componentHandler.upgradeAllRegistered();
-    }*/
-
-}
+export class DashboardComponent{}
