@@ -27,6 +27,7 @@ select:focus {
 /* Hide label */
 .mdl-selectfield label {
     display: none;
+    font-size: 0.9vw;
 }
 
 /* Use custom arrow */
@@ -53,6 +54,10 @@ select:focus {
     border-right: .25em solid transparent;
     border-top: 0.375em solid rgba(0,0,0, 0.12);
     pointer-events: none;
+}
+
+.select-servers{
+    font-size: 0.9vw;
 }
 
 /* ==========  Demo CSS ========== */

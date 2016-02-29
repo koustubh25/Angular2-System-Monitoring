@@ -16,7 +16,8 @@ GEARMAN_REFRESH_INTERVAL : 3, //in seconds
 SUPERVISOR_API_BASE : "http://bento/supervisor",
 SUPERVISOR_REFRESH_INTERVAL : 3, //in seconds
 
-REQUEST_TIMEOUT : 120 //in seconds
+REQUEST_TIMEOUT : 120, //in seconds
+DISPLAY_ERROR_MESSAGE_TIMEOUT: 5
 
 
 };

@@ -17,12 +17,14 @@ export class BatchServerService {
             .map(res => res.json()
             );*/
         return this.http.get(url)
-         .map(res =>res.json());
+         .map(res =>res.json())
+         .timeout(config.REQUEST_TIMEOUT * 1000, new Error('Time out occurred'));
     }
 
     makeHttpPostRequest(url, body, options){
         return this.http.post(url, body, options)
-            .map(res =>  res.json());
+            .map(res =>  res.json())
+            .timeout(config.REQUEST_TIMEOUT * 1000, new Error('Time out occurred'));
 
     }
 

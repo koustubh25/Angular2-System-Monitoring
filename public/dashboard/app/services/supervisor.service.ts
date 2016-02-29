@@ -22,7 +22,8 @@ export class SupervisorService {
 
     makeHttpPostRequest(url, body, options){
         return this.http.post(url, body, options)
-            .map(res =>  res.json());
+            .map(res =>  res.json())
+            .timeout(config.REQUEST_TIMEOUT * 1000, new Error('Time out occurred'));
     }
 
     getSupervisorInfo(){

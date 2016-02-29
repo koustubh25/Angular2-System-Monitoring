@@ -8,6 +8,8 @@ import {MDL} from '../../directives/MaterialDesignLiteUpgradeElement';
 import {Injectable} from "angular2/core";
 import {AddByHostBatchServer} from './addbyhost/addByHostBatchServer';
 import {BatchServers} from './addbyhost/batchServers';
+import {exists} from "fs";
+import {config} from '../../config/config';
 
 
 declare var componentHandler:any;
@@ -15,12 +17,12 @@ declare var dialogPolyfill:any;
 
 @Component({
     selector: 'private-server',
-	templateUrl: 'app/components/private-server/privateServer.html',
+	templateUrl: 'app/components/batch-servers/batchServers.html',
     providers: [BatchServerService],
     directives: [MDL, FORM_DIRECTIVES],
-    styleUrls: ['app/components/private-server/styles/private-server.css']
+    styleUrls: ['app/components/batch-servers/styles/batch-servers.css']
 })
-export class PrivateServersComponent implements OnInit, AfterViewChecked, AfterViewInit{
+export class BatchServersComponent implements OnInit, AfterViewChecked, AfterViewInit{
 
 
     private batchServers: any;
@@ -33,14 +35,26 @@ export class PrivateServersComponent implements OnInit, AfterViewChecked, AfterV
     constructor(private _BatchServerService: BatchServerService, private _el:ElementRef) {}
 
     ngOnInit(){
-        this.batchServers = null;
+
+        this.reset();
+        this.getBatchServers();
+    }
+
+    reset(){
+
         this.editServer = false;
         this.newServer = false;
-        this.newBatchServer = new BatchServer();
         this.addByHost = false;
-        this.addByHostServers = null;
+
+        if (typeof this.addByHostServers != "undefined")
+            delete this.addByHostServers;
+
+        if (typeof this.batchServers != "undefined")
+            delete this.batchServers;
+
+        this.newBatchServer = new BatchServer();
         this.addByHostServers = new AddByHostBatchServer();
-        this.getBatchServers();
+
     }
 
     getBatchServers(){
@@ -48,10 +62,14 @@ export class PrivateServersComponent implements OnInit, AfterViewChecked, AfterV
             .subscribe(
                 data => {
                     this.batchServers = data;
+                    if ('error' in data) {
+                        this.showError(data.error);
+                    }
                 },
                     error => {console.log(error);}
             );
     }
+
 
     switchServers(batchServer){
 
@@ -76,6 +94,7 @@ export class PrivateServersComponent implements OnInit, AfterViewChecked, AfterV
     cancelEditServer(){
         this.editServer = false;
         this.newServer = false;
+        this.addByHost = false;
         window.componentHandler.upgradeAllRegistered();
     }
 
@@ -94,11 +113,17 @@ export class PrivateServersComponent implements OnInit, AfterViewChecked, AfterV
                 newBatchServer.pdf_convert_workers)
                 .subscribe(
                     data => {
-                        console.log(data);
+                        this.reset();
                         this.getBatchServers();
                         this.cancelEditServer();
+                        if('error' in data){
+                            this.showError(data.error);
+                        }
                     },
-                    error => {console.log(error);}
+                    error => {
+                        this.showError(error);
+                        console.log(error);
+                    }
                 );
         }
         //switch to public server
@@ -108,11 +133,18 @@ export class PrivateServersComponent implements OnInit, AfterViewChecked, AfterV
                                                         newBatchServer.port)
                 .subscribe(
                     data => {
-                        console.log(data);
+                        this.reset();
                         this.getBatchServers();
                         this.cancelEditServer();
+                        if('error' in data) {
+                            this.showError(data.error);
+                        }
                     },
-                    error => {console.log(error);}
+                    error => {
+                        this.showError(error);
+                        console.log(error);
+                        console.log("public");
+                    }
                 );
         }
 
@@ -133,37 +165,74 @@ export class PrivateServersComponent implements OnInit, AfterViewChecked, AfterV
 
     addBatchServersById(){
         this.addByHost = true;
+        this.newBatchServer.server_type = "private";
 
     }
 
     addToServersByHostIdList(hostId, videoWorkers, pdfWorkers, currentIp, currentPort){
 
-
-        console.log(hostId)
-        console.log(videoWorkers);
         this.addByHostServers.id_host = hostId;
         this.addByHostServers.video_workers = videoWorkers;
         this.addByHostServers.pdf_workers = pdfWorkers;
         this.addByHostServers.servers.push(new BatchServers(
                                     currentIp, currentPort
                                         ));
-        console.log(this.addByHostServers);
+
 
     }
 
-    addServersByIps(){
+    addServersByhostList(hostId, videoWorkers, pdfWorkers, currentIp, currentPort){
 
+        this.addToServersByHostIdList(hostId, videoWorkers, pdfWorkers, currentIp, currentPort)
         this._BatchServerService.addServersByHostId(this.addByHostServers)
             .subscribe(
                 data => {
-                    console.log(data);
-                    this.getBatchServers();
                     this.cancelEditServer();
-                    this.addByHost = false;
+                    this.getBatchServers();
+                    if ('error' in data) {
+                        this.showError(data.error);
+                    }
                 },
-                error => {console.log(error);}
-            );
+                error => {
+                    this.showError(error);
+                }
+            )
+        this.reset();
+        this.getBatchServers();
+    }
 
+
+    showError(errorMessage)
+    {
+        window.componentHandler.upgradeAllRegistered();
+
+        let snackbarContainer = this._el.nativeElement.querySelector('#toast_error');
+
+        let handler = (event) => {
+            //handle if snackbar clicked
+        };
+
+        if(this.isJson(errorMessage))
+            errorMessage = errorMessage.json();
+
+        var data = {
+            message: errorMessage,
+            timeout: config.DISPLAY_ERROR_MESSAGE_TIMEOUT * 1000,
+            actionHandler: handler,
+            actionText: 'Undo'
+        };
+        snackbarContainer.MaterialSnackbar.showSnackbar(data);
+
+
+    }
+
+    isJson(str) {
+        try {
+            JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+        return true;
     }
 
 }

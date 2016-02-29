@@ -1,6 +1,6 @@
 import {Component, AfterViewInit} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
-import {PrivateServersComponent} from '../private-server/privateServers.component';
+import {BatchServersComponent} from '../batch-servers/batchServers.component';
 import {GearmanComponent} from '../gearman/gearman.component';
 import {SupervisorComponent} from '../supervisor/supervisor.component';
 import {NetflixVectorComponent} from '../netflix-vector/netflixVector.component';
@@ -15,9 +15,9 @@ declare var componentHandler:any;
 })
 @RouteConfig([
   {
-  path: '/private-server', 
-  name: 'PrivateServers',
-  component: PrivateServersComponent,
+  path: '/batch-servers',
+  name: 'BatchServers',
+  component: BatchServersComponent,
   useAsDefault: true
 },
 {
