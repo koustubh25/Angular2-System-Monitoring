@@ -23,12 +23,14 @@ This project is built using [Angular 2](https://angular.io/) and [silex](http://
 3. You can set Javascript specific parameters like `polling interval` or `API endpoints` in the `public/dashboard/app/config/config.ts`.
 4. Batch servers on the Bento Dashboard need access to Deliver DB, hence the backend for batch servers is located `deliver` repo. Make sure that it is setup as per the README in `deliver/batch_servers` in the `deliver` repo.
 5. Make sure that `http://bento/dashboard` is accessible.
+6. To setup Netflix Vector, you need to install PCP using the script `install-pcp.sh` in the `external` directory
 
 ### Known Bugs
 
 1. The [Netflix Vector](https://github.com/Netflix/vector) tab in the Bento Dashboard is obtained from the official Netflix [repos](https://github.com/Netflix), which is written in Angular 1.x. This project simply embeds the built code with a few tweaks.
 
     Switching to a different tab from the `Netflix Vector` tab, will keep generating error messages in the console based on the `interval` set. The reason is that the DOM is destroyed but the requests don't stop. The correct way to stop these messages is destroy on the app on `ngDestroy()`.
+
 2.  Since the official Angular-Material design for Angular 2 is still 'work in proggress', the UI has been built using [Material design lite](http://www.getmdl.io/). Due to the dynamic nature of the DOM, it creates few issues when the DOM contents changes. There will be some erros in the console related to this.
 
 
