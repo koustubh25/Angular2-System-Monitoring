@@ -61,3 +61,20 @@
     top:50%;
     position: absolute;
 }
+.make-pointer-hand{
+    cursor: pointer;
+    cursor: hand;
+    background-color: transparent;
+}
+.make-pointer-hand:hover{
+    cursor: pointer;
+    cursor: hand;
+    background-color: rgba(0,0,0,0.1);
+
+}
+
+.make-pointer-hand:active{
+    background-color: rgba(0,0,0,0.1);
+}
+
+

@@ -23,37 +23,29 @@
             <td>{{batchServer.pdf_convert_workers}}</td>
             <td>{{batchServer.type}}</td>
             <td>
-                <div (click)="switchServers(batchServer)" class="material-icons">undo</div>
+                <div (click)="switchServers(batchServer)" class="material-icons make-pointer-hand">undo</div>
             </td>
         </tr>
         <tr  *ngIf="(editServer == true) && (newBatchServer.server_type == 'private')
         || newServer == true || addByHost == true">
 
             <td>
-                <div *ngIf="newServer == true" class="mdl-textfield mdl-js-textfield half-width">
+                <div *ngIf="newServer == true || addByHost == true" class="mdl-textfield mdl-js-textfield half-width">
                     <input class="mdl-textfield__input" type="text" pattern="^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$" id="ip" [(ngModel)]="newBatchServer.ip">
                     <label class="mdl-textfield__label" for=id_host>IP address*</label>
                     <span class="mdl-textfield__error">Not a valid IP!</span>
                 </div>
 
-                <div  *ngFor="#server of addByHostServers.servers">
+                <div  *ngFor="#server of addByHostServers.servers" style="position: relative;top:30px;">
                     {{server.ip}}
                 </div>
-
-
-                <div *ngIf="addByHost == true" class="mdl-textfield mdl-js-textfield half-width">
-                    <input class="mdl-textfield__input" type="text" pattern="^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$" id="current_ip" [(ngModel)]="current_ip">
-                    <label class="mdl-textfield__label" for=id_host>IP address*</label>
-                    <span class="mdl-textfield__error">Not a valid IP!</span>
-                </div>
-
 
                 <div *ngIf="newServer == false" style="position: relative; top:30px;">{{newBatchServer.ip}}</div>
 
                 <button (click)="addToServersByHostIdList(newBatchServer.id_host
                                                      , newBatchServer.video_convert_workers
                                                      , newBatchServer.pdf_convert_workers
-                                                     , current_ip
+                                                     , newBatchServer.ip
                                                      , newBatchServer.port)"
 
                         class = "mdl-button mdl-js-button mdl-button--primary"
@@ -64,7 +56,7 @@
             </td>
             <td>
 
-                <div  *ngFor="#server of addByHostServers.servers">
+                <div  *ngFor="#server of addByHostServers.servers"  style="position: relative;top:30px;">
                     {{server.port}}
                     <!--<button class="mdl-button mdl-js-button mdl-button--accent"> delete</button>-->
                 </div>
@@ -79,7 +71,7 @@
                 <button (click)="addServersByhostList(newBatchServer.id_host
                                                      , newBatchServer.video_convert_workers
                                                      , newBatchServer.pdf_convert_workers
-                                                     , current_ip
+                                                     , newBatchServer.ip
                                                      , newBatchServer.port)"
                         class = "mdl-button mdl-js-button mdl-button--primary mdl-button--raised mdl-js-ripple-effect ">
                     submit

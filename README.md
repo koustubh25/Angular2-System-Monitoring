@@ -14,7 +14,8 @@ This project is built using [Angular 2](https://angular.io/) and [silex](http://
         Order allow,deny
         Allow from all
     </Directory>
-    </VirtualHost>```
+    </VirtualHost>
+```
     
 2. Download the repo and edit the `config.yml` file in the root directory. You can set the list of Gearman and Supervisor Servers here. Make sure that the other servers are reachable from this machine.
 3. You can set Javascript specific parameters like `polling interval` or `API endpoints` in the `public/dashboard/app/config/config.ts`.
@@ -36,6 +37,7 @@ This project is built using [Angular 2](https://angular.io/) and [silex](http://
 3. Fix UI glitches.
 4. Refactor the code to avoid repetition.
 5. Generate confirmation dialog boxes to prevent accidental modification.
+6. Add remove buttons when adding multiple private servers by host id.
 
 
 

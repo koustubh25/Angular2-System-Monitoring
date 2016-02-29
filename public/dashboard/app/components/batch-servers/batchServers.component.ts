@@ -66,9 +66,14 @@ export class BatchServersComponent implements OnInit, AfterViewChecked, AfterVie
                         this.showError(data.error);
                     }
                 },
-                    error => {console.log(error);}
+                    error => {
+                        console.log(error);
+                        this.showError(error);
+                    }
             );
-    }
+        this.reset();
+
+        }
 
 
     switchServers(batchServer){
