@@ -23,7 +23,7 @@ This project is built using [Angular 2](https://angular.io/) and [silex](http://
 3. You can set Javascript specific parameters like `polling interval` or `API endpoints` in the `public/dashboard/app/config/config.ts`.
 4. Batch servers on the Bento Dashboard need access to Deliver DB, hence the backend for batch servers is located `deliver` repo. Make sure that it is setup as per the README in `deliver/batch_servers` in the `deliver` repo.
 5. Make sure that `http://bento/dashboard` is accessible.
-6. To setup Netflix Vector, you need to install PCP using the script `install-pcp.sh` in the `external` directory
+6. To setup Netflix Vector, you need to install [PCP](http://pcp.io/) using the script `install-pcp.sh` in the `external` directory
 
 ### Known Bugs
 
