@@ -38,6 +38,9 @@ This project is built using [Angular 2](https://angular.io/) and [silex](http://
 4. Refactor the code to avoid repetition.
 5. Generate confirmation dialog boxes to prevent accidental modification.
 6. Add remove buttons when adding multiple private servers by host id.
+7. Sorting tables (gearman and supervisor).
+8. Using build tools like gulp.
+
 
 
 

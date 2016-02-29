@@ -30,18 +30,16 @@
         || newServer == true || addByHost == true">
 
             <td>
+                <div  *ngFor="#server of addByHostServers.servers" style="position: relative;top:30px;">
+                    {{server.ip}}
+                </div>
                 <div *ngIf="newServer == true || addByHost == true" class="mdl-textfield mdl-js-textfield half-width">
                     <input class="mdl-textfield__input" type="text" pattern="^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$" id="ip" [(ngModel)]="newBatchServer.ip">
                     <label class="mdl-textfield__label" for=id_host>IP address*</label>
                     <span class="mdl-textfield__error">Not a valid IP!</span>
                 </div>
 
-                <div  *ngFor="#server of addByHostServers.servers" style="position: relative;top:30px;">
-                    {{server.ip}}
-                </div>
-
-                <div *ngIf="newServer == false" style="position: relative; top:30px;">{{newBatchServer.ip}}</div>
-
+                <br/>
                 <button (click)="addToServersByHostIdList(newBatchServer.id_host
                                                      , newBatchServer.video_convert_workers
                                                      , newBatchServer.pdf_convert_workers
@@ -68,14 +66,14 @@
                     <span class="mdl-textfield__error">Not a valid port</span>
                 </div> <br/>
                 <div *ngIf="addByHost == true">
-                <button (click)="addServersByhostList(newBatchServer.id_host
+                    <button (click)="addServersByhostList(newBatchServer.id_host
                                                      , newBatchServer.video_convert_workers
                                                      , newBatchServer.pdf_convert_workers
                                                      , newBatchServer.ip
                                                      , newBatchServer.port)"
-                        class = "mdl-button mdl-js-button mdl-button--primary mdl-button--raised mdl-js-ripple-effect ">
-                    submit
-                </button>
+                            class = "mdl-button mdl-js-button mdl-button--primary mdl-button--raised mdl-js-ripple-effect ">
+                        submit
+                    </button>
                     <button (click)="cancelEditServer()"
                             class = "mdl-button mdl-js-button mdl-button--primary mdl-button--accent mdl-button--raised mdl-js-ripple-effect ">
                         Cancel
@@ -119,28 +117,24 @@
                 </div>
             </td>
             <td>
-
             </td>
         </tr>
-
-
         </tbody>
-
-
     </table>
 
 
-
-    <button  id="addBatchServerButton" *ngIf="editServer == false && newServer == false && addByHost == false" class="mdl-button
-    mdl-js-button
-    mdl-button--fab
-    mdl-button--colored">
-        <i class="material-icons">add</i>
-    </button>
-    <ul mdl class="mdl-menu mdl-js-menu" for="addBatchServerButton">
-        <li mdl class="mdl-menu__item" (click) = "newEntry()">Add New Batch Server</li>
-        <li mdl class="mdl-menu__item" (click) = "addBatchServersById()">Add Multiple Batch Servers by Host ID</li>
-    </ul>
+    <div  *ngIf="editServer == false && newServer == false && addByHost == false">
+        <button  id="addBatchServerButton" class="mdl-button
+                                                  mdl-js-button
+                                                  mdl-button--fab
+                                                  mdl-button--colored">
+            <i class="material-icons">add</i>
+        </button>
+        <ul mdl class="mdl-menu mdl-js-menu" for="addBatchServerButton">
+            <li mdl class="mdl-menu__item" (click) = "newEntry()">Add New Batch Server</li>
+            <li mdl class="mdl-menu__item" (click) = "addBatchServersById()">Add Multiple Batch Servers by Host ID</li>
+        </ul>
+    </div>
 
     <div *ngIf="(editServer == true  && newBatchServer.server_type == 'private')
     || newServer == true" style="top:20px;position: relative">
@@ -158,11 +152,14 @@
 </div>
 
 
-
 <div class="main_error_msg" *ngIf="batchServers == null">
     Loading Batch Server information. Please wait...
 </div>
 
 <div id="toast_error" class="mdl-js-snackbar mdl-snackbar">
     <div class="mdl-snackbar__text mdl-snackbar__action"></div>
+</div>
+
+<div id="toast_success" class="mdl-js-snackbar mdl-snackbar">
+    <div class="mdl-snackbar__text mdl-snackbar__action" style="color:forestgreen; left: 100px; position: relative"></div>
 </div>

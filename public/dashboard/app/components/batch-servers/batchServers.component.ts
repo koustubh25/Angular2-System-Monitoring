@@ -100,7 +100,8 @@ export class BatchServersComponent implements OnInit, AfterViewChecked, AfterVie
         this.editServer = false;
         this.newServer = false;
         this.addByHost = false;
-        window.componentHandler.upgradeAllRegistered();
+        /*window.componentHandler.upgradeAllRegistered();*/
+        //this.reset();
     }
 
     switchBatchServer(newBatchServer){
@@ -124,6 +125,9 @@ export class BatchServersComponent implements OnInit, AfterViewChecked, AfterVie
                         if('error' in data){
                             this.showError(data.error);
                         }
+                        else{
+                            this.showSuccess("Done!");
+                        }
                     },
                     error => {
                         this.showError(error);
@@ -143,6 +147,9 @@ export class BatchServersComponent implements OnInit, AfterViewChecked, AfterVie
                         this.cancelEditServer();
                         if('error' in data) {
                             this.showError(data.error);
+                        }
+                        else{
+                            this.showSuccess("Done!");
                         }
                     },
                     error => {
@@ -197,6 +204,9 @@ export class BatchServersComponent implements OnInit, AfterViewChecked, AfterVie
                     if ('error' in data) {
                         this.showError(data.error);
                     }
+                    else{
+                        this.showSuccess("Done!");
+                    }
                 },
                 error => {
                     this.showError(error);
@@ -222,12 +232,35 @@ export class BatchServersComponent implements OnInit, AfterViewChecked, AfterVie
 
         var data = {
             message: errorMessage,
-            timeout: config.DISPLAY_ERROR_MESSAGE_TIMEOUT * 1000,
+            timeout: config.TOAST_MESSAGE_TIMEOUT * 1000,
             actionHandler: handler,
             actionText: 'Undo'
         };
         snackbarContainer.MaterialSnackbar.showSnackbar(data);
 
+
+    }
+
+    showSuccess(successMessage)
+    {
+        window.componentHandler.upgradeAllRegistered();
+
+        let snackbarContainer = this._el.nativeElement.querySelector('#toast_success');
+
+        let handler = (event) => {
+            //handle if snackbar clicked
+        };
+
+        if(this.isJson(successMessage))
+            successMessage = successMessage.json();
+
+        var data = {
+            message: successMessage,
+            timeout: config.TOAST_MESSAGE_TIMEOUT * 1000,
+            actionHandler: handler,
+            actionText: 'Undo'
+        };
+        snackbarContainer.MaterialSnackbar.showSnackbar(data);
 
     }
 

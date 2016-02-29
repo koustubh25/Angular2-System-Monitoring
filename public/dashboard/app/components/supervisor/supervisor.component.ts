@@ -4,6 +4,7 @@ import {Process} from './process';
 import {SupervisorService} from '../../services/supervisor.service';
 import {MDL} from '../../directives/MaterialDesignLiteUpgradeElement';
 import {NgClass, NgSwitch} from 'angular2/common';
+import {config} from '../../config/config';
 
 @Component({
 	selector: 'supervisor-monitor',
@@ -104,7 +105,10 @@ export class SupervisorComponent implements OnInit{
                     server.port,
                     process.group + ":" + process.name)
                     .subscribe(
-                        data => {this.operationResult = data;},
+                        data => {
+                            this.operationResult = data;
+                            this.showSuccess("Done");
+                        },
                         error => {
                             this.error = true;
                             console.log(error);
@@ -122,8 +126,15 @@ export class SupervisorComponent implements OnInit{
                     server.port,
                     process.group + ":" + process.name)
                     .subscribe(
-                        data => {this.operationResult = data;},
-                        error => {this.error = true; console.log(error);},
+                        data => {
+                            this.operationResult = data;
+                            this.showSuccess("Done");
+                        },
+                        error => {
+                            this.error = true;
+                            console.log(error);
+                            this.showError(error);
+                        },
                         () => console.log('Process Started')
                     );
             };
@@ -137,7 +148,10 @@ export class SupervisorComponent implements OnInit{
             this._supervisorService.startAll(server.addr,
                                         server.port)
                 .subscribe(
-                    data => {this.operationResult = data;},
+                    data => {
+                        this.operationResult = data;
+                        this.showSuccess("Done");
+                    },
                     error => {this.error = true; console.log(error);},
                     () => console.log('All processes Started')
                 );
@@ -153,7 +167,10 @@ export class SupervisorComponent implements OnInit{
             this._supervisorService.stopAll(server.addr,
                 server.port)
                 .subscribe(
-                    data => {this.operationResult = data;},
+                    data => {
+                        this.operationResult = data;
+                        this.showSuccess("Done");
+                    },
                     error => {
                         this.error = true;
                         console.log(error);
@@ -172,7 +189,10 @@ export class SupervisorComponent implements OnInit{
             this._supervisorService.restartAll(server.addr,
                 server.port)
                 .subscribe(
-                    data => {this.operationResult = data;},
+                    data => {
+                        this.operationResult = data;
+                        this.showSuccess("Done");
+                    },
                     error => {
                         this.error = true;
                         console.log(error);
@@ -193,18 +213,52 @@ export class SupervisorComponent implements OnInit{
         let snackbarContainer = this._el.nativeElement.querySelector('#toast_error');
 
         let handler = (event) => {
-            snackbarContainer.className= "";
-            console.log("handler called");
+            //handle if snackbar clicked
         };
 
+        if(this.isJson(errorMessage))
+            errorMessage = errorMessage.json();
+
         var data = {
-            message: errorMessage.json(),
-            timeout: 3000,
+            message: errorMessage,
+            timeout: config.TOAST_MESSAGE_TIMEOUT * 1000,
             actionHandler: handler,
             actionText: 'Undo'
         };
         snackbarContainer.MaterialSnackbar.showSnackbar(data);
 
 
+    }
+
+    showSuccess(successMessage)
+    {
+        window.componentHandler.upgradeAllRegistered();
+
+        let snackbarContainer = this._el.nativeElement.querySelector('#toast_success');
+
+        let handler = (event) => {
+            //handle if snackbar clicked
+        };
+
+        if(this.isJson(successMessage))
+            successMessage = successMessage.json();
+
+        var data = {
+            message: successMessage,
+            timeout: config.TOAST_MESSAGE_TIMEOUT * 1000,
+            actionHandler: handler,
+            actionText: 'Undo'
+        };
+        snackbarContainer.MaterialSnackbar.showSnackbar(data);
+
+    }
+
+    isJson(str) {
+        try {
+            JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+        return true;
     }
 }

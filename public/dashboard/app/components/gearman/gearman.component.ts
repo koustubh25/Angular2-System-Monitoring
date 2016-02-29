@@ -2,6 +2,7 @@ import {Component, AfterViewInit, OnInit, ElementRef} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 import {GearmanService} from '../../services/gearman.service';
 import {MDL} from '../../directives/MaterialDesignLiteUpgradeElement';
+import {config} from '../../config/config';
 
 
 @Component({
@@ -90,17 +91,20 @@ export class GearmanComponent implements OnInit, AfterViewInit {
 		let snackbarContainer = this._el.nativeElement.querySelector('#toast_error');
 
 		let handler = (event) => {
-            //handle if snackbar clicked
+			//handle if snackbar clicked
 		};
 
+		if(typeof errorMessage != "string")
+			errorMessage ="Failed";
+
 		var data = {
-			message: errorMessage.json(),
-			timeout: 3000,
+			message: errorMessage,
+			timeout: config.TOAST_MESSAGE_TIMEOUT * 1000,
 			actionHandler: handler,
 			actionText: 'Undo'
 		};
 		snackbarContainer.MaterialSnackbar.showSnackbar(data);
-
-
 	}
+
+
 }

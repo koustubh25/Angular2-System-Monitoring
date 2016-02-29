@@ -26,15 +26,17 @@
             <span *ngSwitchWhen='true'>
 
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="startAll(server)">
-                    Start All
+                    Start All &nbsp;
                 </button>
+                <div class="divider"></div>
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="stopAll(server)">
-                    Stop All
+                    Stop All &nbsp;
                 </button>
+                <div class="divider"></div>
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" (click)="restartAll(server)">
                     Restart All
                 </button>
-        <table  class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+        <table  class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" style="position:relative; top:10px;">
 
             <thead align="">
             <tr>
@@ -76,6 +78,11 @@
 
 <div id="toast_error" class="mdl-js-snackbar mdl-snackbar">
     <div class="mdl-snackbar__text mdl-snackbar__action"></div>
+</div>
+
+
+<div id="toast_success" class="mdl-js-snackbar mdl-snackbar">
+    <div class="mdl-snackbar__text mdl-snackbar__action" style="color:forestgreen; left: 100px; position: relative"></div>
 </div>
 
 
