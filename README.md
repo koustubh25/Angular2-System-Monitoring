@@ -14,9 +14,8 @@ This project is built using [Angular 2](https://angular.io/) and [silex](http://
         Order allow,deny
         Allow from all
     </Directory>
-    </VirtualHost>
-
-```
+    </VirtualHost>```
+    
 2. Download the repo and edit the `config.yml` file in the root directory. You can set the list of Gearman and Supervisor Servers here. Make sure that the other servers are reachable from this machine.
 3. You can set Javascript specific parameters like `polling interval` or `API endpoints` in the `public/dashboard/app/config/config.ts`.
 4. Batch servers on the Bento Dashboard need access to Deliver DB, hence the backend for batch servers is located `deliver` repo. Make sure that it is setup as per the README in `deliver/batch_servers` in the `deliver` repo.
