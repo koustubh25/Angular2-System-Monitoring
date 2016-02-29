@@ -1,4 +1,5 @@
 import {Component, AfterViewInit, AfterViewChecked, ElementRef} from 'angular2/core';
+import {FORM_DIRECTIVES} from 'angular2/common';
 import { BatchServer } from './batchServer';
 import {BatchServerType} from './batchServerType';
 import { BatchServerService } from '../../services/batch-server.service';
@@ -16,7 +17,7 @@ declare var dialogPolyfill:any;
     selector: 'private-server',
 	templateUrl: 'app/components/private-server/privateServer.html',
     providers: [BatchServerService],
-    directives: [MDL],
+    directives: [MDL, FORM_DIRECTIVES],
     styleUrls: ['app/components/private-server/styles/private-server.css']
 })
 export class PrivateServersComponent implements OnInit, AfterViewChecked, AfterViewInit{
@@ -119,6 +120,7 @@ export class PrivateServersComponent implements OnInit, AfterViewChecked, AfterV
 
     newEntry(){
         this.newServer = true;
+        this.newBatchServer.server_type = "public";
     }
 
     ngAfterViewChecked(){

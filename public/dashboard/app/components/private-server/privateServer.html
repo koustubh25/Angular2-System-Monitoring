@@ -15,7 +15,10 @@
         <tr *ngFor="#batchServer of batchServers">
             <td>{{batchServer.ip}}</td>
             <td>{{batchServer.port}}</td>
-            <td>{{batchServer.id_host}}</td>
+            <td>
+                <div *ngIf="batchServer.id_host != 0">{{batchServer.id_host}}</div>
+                <div *ngIf="batchServer.id_host == 0"> NA </div>
+            </td>
             <td>{{batchServer.video_convert_workers}}</td>
             <td>{{batchServer.pdf_convert_workers}}</td>
             <td>{{batchServer.type}}</td>
@@ -43,21 +46,21 @@
                 </div>
             </td>
             <td>
-                <div class="mdl-textfield mdl-js-textfield half-width">
+                <div class="mdl-textfield mdl-js-textfield half-width" *ngIf="newBatchServer.server_type == 'private'">
                     <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="id_host" [(ngModel)]="newBatchServer.id_host">
                     <label class="mdl-textfield__label" for=id_host>Host ID</label>
                     <span class="mdl-textfield__error">Not a valid host id!</span>
                 </div>
             </td>
             <td>
-                <div class="mdl-textfield mdl-js-textfield half-width">
+                <div class="mdl-textfield mdl-js-textfield half-width"  *ngIf="newBatchServer.server_type == 'private'">
                     <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="video_workers" [(ngModel)]="newBatchServer.video_convert_workers">
                     <label class="mdl-textfield__label" for="video_workers">Video Workers</label>
                     <span class="mdl-textfield__error">Not Valid number of workers!</span>
                 </div>
             </td>
             <td>
-                <div class="mdl-textfield mdl-js-textfield half-width">
+                <div class="mdl-textfield mdl-js-textfield half-width"  *ngIf="newBatchServer.server_type == 'private'">
                     <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="pdf_workers" [(ngModel)]="newBatchServer.pdf_convert_workers">
                     <label class="mdl-textfield__label" for="pdf_workers">PDF Workers</label>
                     <span class="mdl-textfield__error">Not Valid number of workers!</span>
@@ -67,12 +70,13 @@
                 <div *ngIf="newServer == true">
                     <div class="mdl-selectfield">
                         <label>Standard Select</label>
-                        <select class="browser-default">
-                            <option value="1">private</option>
-                            <option value="2" selected>public</option>
+                        <select class="browser-default" [(ngModel)] = "newBatchServer.server_type">
+                            <option value="private">private</option>
+                            <option value="public" selected>public</option>
                         </select>
                     </div>
                 </div>
+                {{newBatchServer.server_type}}
                 <div *ngIf="newServer == false">
                     {{newBatchServer.server_type}}
                 </div>
