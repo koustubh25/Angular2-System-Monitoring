@@ -6,7 +6,8 @@ bento.iml
 **/*.DS_Store
 **/*.log
 
-public/dashboard/**/*.js*
+public/dashboard/**/*.js.*
+public/dashboard/**/*.js
 public/dashboard/node_modules
 
 
