@@ -1,11 +1,8 @@
 #Gearman Servers
 
 gearman.servers:
-  - name : "Server 1"
-    addr : "192.168.100.104"
-    port : "4730"
-  - name : "Server 2"
-    addr : "127.0.0.1"
+  - name : "1C"
+    addr : "10.0.2.51"
     port : "4730"
 
 
@@ -13,13 +10,13 @@ gearman.servers:
 #uname and password don't matter if
 #supervisor is set to run without it
 supervisor.servers:
-  - name : "Sup1 "
-    addr : "127.0.0.1"
+  - name : "BATCH 4"
+    addr : "10.0.2.16"
     port : "9001"
     uname : "admin"
     password : "admin"
-  - name : "Sup2"
-    addr : "192.168.100.104"
+  - name : "BATCH 6"
+    addr : "10.0.1.17"
     port : "9001"
     uname : "admin"
     password : "admin"

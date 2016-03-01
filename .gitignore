@@ -6,8 +6,11 @@ bento.iml
 **/*.DS_Store
 **/*.log
 
-public/dashboard/**/*.js.*
+public/dashboard/**/*.js.map
+
 public/dashboard/**/*.js
+!public/dashboard/app/components/netflix-vector/dist/scripts/*
+
 public/dashboard/node_modules
 
 

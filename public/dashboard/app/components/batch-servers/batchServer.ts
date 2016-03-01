@@ -1,4 +1,4 @@
-import {BatchServerType} from './BatchServerType';
+import {BatchServerType} from './batchServerType';
 
 export class BatchServer {
     ip: string;

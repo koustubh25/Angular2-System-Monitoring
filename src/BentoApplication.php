@@ -7,9 +7,9 @@
  * Time: 2:23 PM
  */
 
-require_once __DIR__ . '/../src/ConfigurationProvider.php';
-require_once __DIR__ . '/../src/gearman/GearmanFacadeProvider.php';
-require_once __DIR__ . '/../src/supervisor/SupervisorFacadeProvider.php';
+require_once __DIR__ . '/ConfigurationProvider.php';
+require_once __DIR__ . '/gearman/GearmanFacadeProvider.php';
+require_once __DIR__ . '/Supervisor/SupervisorFacadeProvider.php';
 
 use Silex\Application,
     Silex\Provider\MonologServiceProvider,
