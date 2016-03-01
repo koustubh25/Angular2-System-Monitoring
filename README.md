@@ -18,12 +18,14 @@ This project is built using [Angular 2](https://angular.io/) and [silex](http://
 </VirtualHost>
 
 ```
-    
-2. Download the repo and edit the `config.yml` file in the root directory. You can set the list of Gearman and Supervisor Servers here. Make sure that the other servers are reachable from this machine.
-3. You can set Javascript specific parameters like `polling interval` or `API endpoints` in the `public/dashboard/app/config/config.ts`.
-4. Batch servers on the Bento Dashboard need access to Deliver DB, hence the backend for batch servers is located `deliver` repo. Make sure that it is setup as per the README in `deliver/batch_servers` in the `deliver` repo.
-5. Make sure that `http://bento/dashboard` is accessible.
-6. To setup Netflix Vector, you need to install [PCP](http://pcp.io/) using the script `install-pcp.sh` in the `external` directory
+
+2. You need to run `composer install --no-dev` in the root directory.
+3. You also need to run `npm install` in the `public/dashboard` directory and then `npm run tsc` to compile typescript to javascript.
+4. Edit the `config.yml` file in the root directory. You can set the list of Gearman and Supervisor Servers here. Make sure that the other servers are reachable from this machine.
+5. You can set Javascript specific parameters like `polling interval` or `API endpoints` in the `public/dashboard/app/config/config.ts`.
+6. Batch servers on the Bento Dashboard need access to Deliver DB, hence the backend for batch servers is located `deliver` repo. Make sure that it is setup as per the README in `deliver/batch_servers` in the `deliver` repo.
+7. Make sure that `http://bento/dashboard` is accessible.
+8. To setup Netflix Vector, you need to install [PCP](http://pcp.io/) using the script `install-pcp.sh` in the `deliver` repo. Also, make sure that port number `44323` of the batch server is accessible from your machine.
 
 ### Known Bugs
 
