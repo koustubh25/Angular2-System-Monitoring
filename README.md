@@ -1,4 +1,4 @@
-# Bento - Millvi System Monitoring
+# Bento - System Monitoring
 
 This project is built using [Angular 2](https://angular.io/) and [silex](http://silex.sensiolabs.org/)
 
